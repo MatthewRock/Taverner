@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
     initscr();
     Taverner::csout okienko;
     //wprintw(stdscr, "Hello, world!");
-    okienko << "Hello, world!" << "test";//'\n'; //<< "This number: " << x << " is equal to five!";
+    okienko << "Hello, world!" << "test" << '\n' << "This number: " << x << " is equal to five!";
     refresh();
     getch();
     endwin();
