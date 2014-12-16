@@ -12,17 +12,22 @@ namespace Taverner
         WINDOW* win;
     public:
         csout(WINDOW* w = stdscr) : win(w){};
+        csout(const csout& x) = default;
 
-        csout& operator<< (bool val);
-        csout& operator<< (short val);
-        csout& operator<< (unsigned short val);
-        csout& operator<< (int val);
-        csout& operator<< (unsigned int val);
-        csout& operator<< (long val);
-        csout& operator<< (unsigned long val);
-        csout& operator<< (float val);
-        csout& operator<< (double val);
-        csout& operator<< (long double val);
+        ~csout() = default;
+
+        friend csout& operator<< (const csout& stream, bool val);
+        friend csout& operator<< (const csout& stream, short val);
+        friend csout& operator<< (const csout& stream, unsigned short val);
+        friend csout& operator<< (const csout& stream, int val);
+        friend csout& operator<< (const csout& stream, unsigned int val);
+        friend csout& operator<< (const csout& stream, long val);
+        friend csout& operator<< (const csout& stream, unsigned long val);
+        friend csout& operator<< (const csout& stream, float val);
+        friend csout& operator<< (const csout& stream, double val);
+        friend csout& operator<< (const csout& stream, long double val);
+        friend csout& operator<< (const csout& stream, char val);
+        friend csout& operator<< (const csout& stream, const char* val);
     };
 }
 

@@ -2,53 +2,63 @@
 
 using namespace Taverner;
 
-csout& csout::operator<< (bool val)
+csout& operator<< (const csout& stream, bool val)
 {
-
+    wprintw(stream.win, "%d", val);
 }
 
-csout& csout::operator<< (short val)
-{
-
-}
-
-csout& csout::operator<< (unsigned short val)
-{
-
-}
-
-csout& csout::operator<< (int val)
+csout& operator<< (const csout& stream, short val)
 {
     wprintw(win, "%d", val);
 }
 
-csout& csout::operator<< (unsigned int val)
+csout& operator<< (const csout& stream, unsigned short val)
 {
-
+    wprintw(win, "%u", val);
 }
 
-csout& csout::operator<< (long val)
+csout& operator<< (const csout& stream, int val)
 {
-
+    wprintw(win, "%d", val);
 }
 
-csout& csout::operator<< (unsigned long val)
+csout& operator<< (const csout& stream, unsigned int val)
 {
-
+    wprintw(win, "%u", val);
 }
 
-csout& csout::operator<< (float val)
+csout& operator<< (const csout& stream, long val)
 {
-
+    wprintw(win, "%d", val);
 }
 
-csout& csout::operator<< (double val)
+csout& operator<< (const csout& stream, unsigned long val)
 {
-
+    wprintw(win, "%u", val);
 }
 
-csout& csout::operator<< (long double val)
+csout& operator<< (const csout& stream, float val)
 {
-
+    wprintw(win, "%f", val);
 }
 
+csout& operator<< (const csout& stream, double val)
+{
+    wprintw(win, "%f", val);
+}
+
+csout& operator<< (const csout& stream, long double val)
+{
+    wprintw(win, "%f", val);
+}
+
+csout& operator<< (const csout& stream, char val)
+{
+    wprintw(win, "%c", val);
+}
+
+csout& operator<< (const csout& stream, const char* val)
+{
+    wprintw(win, "%s", val);
+    return stream;
+}
