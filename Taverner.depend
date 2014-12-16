@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1418689242 source:/home/malice/Programming/C++/Uczelnia/Taverner/csout.cpp
+	"csout.hpp"
+
+1418689204 /home/malice/Programming/C++/Uczelnia/Taverner/csout.hpp
+	<ncursesw/ncurses.h>
+
+1418688799 source:/home/malice/Programming/C++/Uczelnia/Taverner/main.cpp
+	<iostream>
+	<ncursesw/curses.h>
+	<ncursesw/ncurses.h>
+
