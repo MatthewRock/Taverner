@@ -1,6 +1,6 @@
 #Code::Blocks project files
 *.cbp
-
+*.depend
 #Resulting .o and binary files(and their directories)
 bin
 obj
