@@ -1,16 +1,13 @@
 #include <iostream>
-#include "csout.hpp"
-using namespace std;
+#include <vector>
+#include <string>
+#include <list>
+#include <utility>
+#include "Timer.hpp"
+#include "Dialogue.h"
 
 int main(int argc, char* argv[])
 {
-    int x = 5;
-    initscr();
-    Taverner::csout okienko;
-    //wprintw(stdscr, "Hello, world!");
-    okienko << "Hello, world!" << "test" << '\n' << "This number: " << x << " is equal to five!";
-    refresh();
-    getch();
-    endwin();
+
     return 0;
 }
