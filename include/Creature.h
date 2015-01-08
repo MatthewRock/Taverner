@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include EXP_MULTIPLIER 1
+
 class Creature
 {
     public:
@@ -30,6 +32,27 @@ class Creature
 
         std::string name;
         std::string vocation;
+
+
+        /** \brief Returns experience required to advance to given level
+         *
+         * \param lev unsigned
+         *      Level for which experience will be specified.
+         * \return unsigned
+         *      Amount of experience points required to advance to level lev
+         *
+         */
+        unsigned expToLevel(unsigned lev);
+
+
+
+        /** \brief Levels up creature to next level if it meets requirements(xp)
+         *
+         * \return bool
+         *
+         */
+        bool levelUp();
+
 };
 
 #endif // CREATURE_H
