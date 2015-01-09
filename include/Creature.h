@@ -3,56 +3,49 @@
 
 #include <string>
 
-#include EXP_MULTIPLIER 1
+#define EXP_MULTIPLIER 1
 
-class Creature
+namespace Taverner
 {
-    public:
-        Creature(std::string nam, unsigned heal, unsigned str, unsigned intel, unsigned dex, unsigned wis, unsigned endur,
-                 double hitCh, unsigned lev = 1, unsigned long exp = 0)
-                 : name(nam), maxHealth(heal), strength(str), intelligence(intel), dexterity(dex), wisdom(wis), endurance(endur),
-                 hitChance(hitCh), level(lev), experiencePoints(exp), currentHealth(heal)
-         {
+    class Creature
+    {
+        public:
+            Creature() = default;
+            Creature(const Creature& other) = default;
+            Creature(std::string nam, unsigned heal, unsigned str, unsigned intel, unsigned dex, unsigned wis, unsigned endur,
+                     double hitCh, std::string voc, unsigned lev = 1, unsigned long exp = 0)
+                     : name(nam), maxHealth(heal), strength(str), intelligence(intel), dexterity(dex), wisdom(wis), endurance(endur),
+                     hitChance(hitCh), vocation(voc), level(lev), experiencePoints(exp), currentHealth(heal)
+             {
 
-         }
-        virtual ~Creature() = default;
+             }
+            virtual ~Creature() = default;
 
-        unsigned maxHealth;
-        int currentHealth;
-        unsigned strength;
-        unsigned intelligence;
-        unsigned dexterity;
-        unsigned wisdom;
-        unsigned endurance;
+            unsigned maxHealth;
+            int currentHealth;
+            unsigned strength;
+            unsigned intelligence;
+            unsigned dexterity;
+            unsigned wisdom;
+            unsigned endurance;
 
-        double hitChance;
+            double hitChance;
 
-        unsigned level;
-        unsigned long experiencePoints;
+            unsigned level;
+            unsigned long experiencePoints;
 
-        std::string name;
-        std::string vocation;
+            std::string name;
+            std::string vocation;
 
+            unsigned expToLevel(unsigned lev);
+            bool levelUp();
 
-        /** \brief Returns experience required to advance to given level
-         *
-         * \param lev unsigned
-         *      Level for which experience will be specified.
-         * \return unsigned
-         *      Amount of experience points required to advance to level lev
-         *
-         */
-        unsigned expToLevel(unsigned lev);
+        private:
+            inline int incStat(int mod)
+            {
+                return level % mod;
+            }
 
-
-
-        /** \brief Levels up creature to next level if it meets requirements(xp)
-         *
-         * \return bool
-         *
-         */
-        bool levelUp();
-
-};
-
+    };
+}
 #endif // CREATURE_H
