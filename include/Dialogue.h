@@ -20,7 +20,7 @@ namespace Taverner
              * \return int number meaning which choice was chosen
              *
              */
-            int activate();
+            unsigned activate();
         protected:
         private:
             std::string question;

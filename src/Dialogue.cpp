@@ -16,7 +16,7 @@ namespace Taverner
 
     }
 
-    int Dialogue::activate()
+    unsigned Dialogue::activate()
     {
         //Ask question in dialogue
         std::cout << question << std::endl;
@@ -30,9 +30,9 @@ namespace Taverner
 
         //We answered for user, and it wasn't valid answer. :)
 
-        int userInput = -1;
+        unsigned userInput = -1;
         //Ask user for answer until the answer is in range.
-        while(userInput < 0 || userInput > choices.size())
+        while(userInput <= 0 || userInput > choices.size())
         {
             std::cin >> userInput;
         }

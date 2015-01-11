@@ -13,9 +13,9 @@ namespace Taverner
             Creature() = default;
             Creature(const Creature& other) = default;
             Creature(std::string nam, unsigned heal, unsigned str, unsigned intel, unsigned dex, unsigned wis, unsigned endur,
-                     double hitCh, std::string voc, unsigned lev = 1, unsigned long exp = 0)
+                     std::string voc, unsigned lev = 1, unsigned long exp = 0)
                      : name(nam), maxHealth(heal), strength(str), intelligence(intel), dexterity(dex), wisdom(wis), endurance(endur),
-                     hitChance(hitCh), vocation(voc), level(lev), experiencePoints(exp), currentHealth(heal)
+                     vocation(voc), level(lev), experiencePoints(exp), currentHealth(heal)
              {
 
              }
@@ -28,8 +28,6 @@ namespace Taverner
             unsigned dexterity;
             unsigned wisdom;
             unsigned endurance;
-
-            double hitChance;
 
             unsigned level;
             unsigned long experiencePoints;
