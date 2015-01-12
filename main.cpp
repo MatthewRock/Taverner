@@ -9,6 +9,7 @@
 
 #include "Dialogue.h"
 #include "Creature.h"
+#include "Logger.hpp"
 
 using namespace Taverner;
 
@@ -20,7 +21,6 @@ int main(int argc, char* argv[])
     int result = Dialogue(
     "Welcome!",
     {"New Game", "Exit"}).activate();
-
     switch(result)
     {
         case 1: player = dialogue_newchar(); break;

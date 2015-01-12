@@ -50,7 +50,7 @@ namespace Taverner
         inline bool isStarted() { return started;};
         inline int seconds(int s) { return s*1000;}
         inline int seconds(double s) { return s*1000;}
-        inline auto getCurrentTime() -> decltype(Clock_Type::now()) { return Clock_Type::now(); }
+        static inline auto getCurrentTime() -> decltype(Clock_Type::now()) { return Clock_Type::now(); }
     };
 
     template <typename Clock_Type, typename Time_Precision>
