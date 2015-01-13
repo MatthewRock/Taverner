@@ -1,6 +1,9 @@
 #include "GameEngine.hpp"
-
-GameEngine::GameEngine()
+namespace Taverner
 {
-    //ctor
+    GameEngine::GameEngine()
+    {
+        running = true;
+    }
+
 }
