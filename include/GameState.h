@@ -17,8 +17,8 @@ namespace Taverner
             GameState() = default;
             GameState(const GameState& other) = default;
             GameState(GameState&&) = default;
-            GameState& operator=(const GameState& other) & = default;
-            GameState& operator=(GameState&&) & = default;
+            GameState& operator=(const GameState& other) = default;
+            GameState& operator=(GameState&&) = default;
             virtual ~GameState() = default;
 
         protected:
