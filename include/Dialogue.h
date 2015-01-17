@@ -10,6 +10,7 @@ namespace Taverner
     class Dialogue
     {
         public:
+            Dialogue() = default;
             Dialogue(std::string question, std::vector<std::string> choices);
             ~Dialogue() = default;
             Dialogue(const Dialogue& other);

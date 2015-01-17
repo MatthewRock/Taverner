@@ -3,27 +3,29 @@
 
 #include "GameState.h"
 
+#include <string>
+#include <vector>
+
 namespace Taverner
 {
-
     class MenuState : public GameState
     {
         public:
+            //Creates menu with greet as top text, and options as menu positions.
             MenuState();
-            MenuState(const MenuState& other);
-            MenuState(MenuState&&);
-            MenuState& operator=(const MenuState& other);
-            MenuState& operator=(MenuState&&);
-            ~MenuState();
+            ~MenuState() = default;
+
             void Pause();
             void Resume();
-            void HandleEvents();
-            void Update();
+            void HandleEvents(std::string command);
+            void Update(GameEngine* eng);
             void Draw();
-            void ChangeState();
 
         protected:
         private:
+            std::string m_greet;
+            std::vector<std::string> m_options;
+            unsigned userInput;
     };
 }
 #endif // MENUSTATE_HPP

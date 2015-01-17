@@ -2,77 +2,83 @@
 
 namespace Taverner
 {
-
-    csout& operator<< (csout& stream, bool val)
+    Csout& operator<< (Csout& stream, bool val)
     {
         wprintw(stream.win, "%d", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, short val)
+    Csout& operator<< (Csout& stream, short val)
     {
         wprintw(stream.win, "%d", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, unsigned short val)
+    Csout& operator<< (Csout& stream, unsigned short val)
     {
         wprintw(stream.win, "%u", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, int val)
+    Csout& operator<< (Csout& stream, int val)
     {
         wprintw(stream.win, "%d", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, unsigned int val)
+    Csout& operator<< (Csout& stream, unsigned int val)
     {
         wprintw(stream.win, "%u", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, long val)
+    Csout& operator<< (Csout& stream, long val)
     {
         wprintw(stream.win, "%d", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, unsigned long val)
+    Csout& operator<< (Csout& stream, unsigned long val)
     {
         wprintw(stream.win, "%u", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, float val)
+    Csout& operator<< (Csout& stream, float val)
     {
         wprintw(stream.win, "%f", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, double val)
+    Csout& operator<< (Csout& stream, double val)
     {
         wprintw(stream.win, "%f", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, long double val)
+    Csout& operator<< (Csout& stream, long double val)
     {
         wprintw(stream.win, "%f", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, char val)
+    Csout& operator<< (Csout& stream, char val)
     {
         wprintw(stream.win, "%c", val);
         return stream;
     }
 
-    csout& operator<< (csout& stream, const char* val)
+    Csout& operator<< (Csout& stream, const char* val)
     {
         wprintw(stream.win, "%s", val);
         return stream;
     }
+    Csout& operator<< (Csout& stream, std::string val)
+    {
+        wprintw(stream.win, "%s", val.c_str());
+        return stream;
+    }
 
+    char endl = '\n';
+    Csout csout;
 }

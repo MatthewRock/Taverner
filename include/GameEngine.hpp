@@ -16,18 +16,34 @@ namespace Taverner
     class GameEngine : private Initializer
     {
         public:
-            GameEngine() = delete;//We need first state, otherwise starting engine doesn't make any sense.
-
+            GameEngine();
             ~GameEngine() = default;
+
+            inline void Run()
+            {
+                while(IsRunning())
+                {
+                    HandleEvents();
+                    Update();
+                    Draw();
+                }
+            }
+
+            void ChangeState(GameState* state);
+            void PushState(GameState* state);
+            void PopState();
+
+        private:
             void Update();
+            void HandleEngineEvents(char ch);
             void HandleEvents();
             void Draw();
-            inline bool IsRunning() { return running; }
-        private:
-            bool running;
-            void HandleEngineEvents();
 
-            std::vector<std::unique_ptr<GameState> > states;
+            inline void Quit() { m_running = false; }
+            inline bool IsRunning() { return m_running; }
+
+            std::vector<std::unique_ptr<GameState> > m_states;
+            bool m_running;
     };
 }
 #endif // GAMEENGINE_HPP

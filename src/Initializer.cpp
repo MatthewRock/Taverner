@@ -8,6 +8,8 @@ namespace Taverner
     Initializer::Initializer()
     {
         initscr();
+        raw();
+        noecho();
         LOG_STRING("All systems initialized.");
     }
 
