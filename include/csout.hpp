@@ -11,13 +11,16 @@ namespace Taverner
     class Csout
     {
         WINDOW* win;
-        int x;
+        int maxX, maxY;
     public:
-        Csout(WINDOW* w = stdscr) : win(w){};
+        Csout(WINDOW* w = stdscr) : win(w)
+        {
+            getmaxyx(win, maxY, maxX);
+        };
         Csout(const Csout& x) = default;
 
         ~Csout() = default;
-        friend void hello(Csout& obj);
+
         friend Csout& operator<< (Csout& stream, bool val);
         friend Csout& operator<< (Csout& stream, short val);
         friend Csout& operator<< (Csout& stream, unsigned short val);
@@ -31,6 +34,10 @@ namespace Taverner
         friend Csout& operator<< (Csout& stream, char val);
         friend Csout& operator<< (Csout& stream, const char* val);
         friend Csout& operator<< (Csout& stream, std::string val);
+
+        void crMove(int x, int y);
+        inline int MaxX() { return maxX; }
+        inline int MaxY() { return maxY; }
     };
 
     extern char endl;

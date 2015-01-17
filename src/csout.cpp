@@ -78,6 +78,10 @@ namespace Taverner
         wprintw(stream.win, "%s", val.c_str());
         return stream;
     }
+    void Csout::crMove(int x, int y)
+    {
+        wmove(win, y, x);
+    }
 
     char endl = '\n';
     Csout csout;
