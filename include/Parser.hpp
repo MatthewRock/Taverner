@@ -5,12 +5,13 @@
 
 namespace Taverner
 {
+    class Csout;
     class Parser
     {
         std::string m_input;
-        bool parseChar(char x);
+        bool parseChar(int x);
         public:
-        std::string GetInput();
+        std::string GetInput(Csout& csout);
     };
 }
 

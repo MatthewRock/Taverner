@@ -7,7 +7,7 @@ namespace Taverner
     GameEngine::GameEngine()
     {
         m_running = true;
-        m_states.emplace_back(new MenuState());
+        m_states.emplace_back(new MenuState(m_csout));
     }
 
     void GameEngine::Update()
@@ -20,10 +20,7 @@ namespace Taverner
 
     void GameEngine::HandleEvents()
     {
-
-// TODO (malice#1#): Change it for Parser.GetInput() or something
-
-        std::string ch = m_parser.GetInput();
+        std::string ch = m_parser.GetInput(m_csout);
         HandleEngineEvents(ch);
 
         for(auto& x : m_states)
@@ -36,7 +33,7 @@ namespace Taverner
     {
         for(auto& x : m_states)
         {
-            x->Draw();
+            x->Draw(m_csout);
         }
     }
 

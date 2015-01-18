@@ -8,7 +8,7 @@
 namespace Taverner
 {
     class GameEngine;
-
+    class Csout;
     class GameState
     {
         public:
@@ -20,7 +20,7 @@ namespace Taverner
 
             virtual void HandleEvents(std::string command) = 0;
             virtual void Update(GameEngine* eng) = 0;
-            virtual void Draw() = 0;
+            virtual void Draw(Csout& csout) = 0;
 
             GameState() = default;
             virtual ~GameState() = default;

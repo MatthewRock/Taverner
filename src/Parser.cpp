@@ -4,22 +4,27 @@
 
 namespace Taverner
 {
-    std::string Parser::GetInput()
+    std::string Parser::GetInput(Csout& csout)
     {
         m_input = "";
         //Move to the last row, and to the end of string.
-        csout.crMove(15 , 15);
-        //Print console prompt
-        csout << "> " << m_input;
-        //Get input from getch to string
-        //If input was enter, return command
-        //If it wasn't, append to string and continue
-        refresh();
-        while(parseChar(getch()))
+        csout.CrMove(0 , csout.MaxY() - 1);
+        //Print console prompt and clear line
+        csout << "> ";
+        clrtoeol();
+        //Print everything to screen
+        csout.Refresh();
+        //Start getting input with parseChar, until enter is encountered
+        while(parseChar(csout.Getch()))
         {
-            csout.crMove(0 , csout.MaxY() - 2);
+            //After each char entered, move to the beginning of the line
+            csout.CrMove(0 , csout.MaxY() - 1);
+            //Print console prompt with input string
             csout << "> " << m_input;
-            refresh();
+            //And clear the rest of line
+            clrtoeol();
+            //After that, print everything to screen.
+            csout.Refresh();
         }
         return m_input;
 
@@ -31,12 +36,14 @@ namespace Taverner
      * \return bool <- false if x is enter. true otherwise.
      *
      */
-    bool Parser::parseChar(char x)
+    bool Parser::parseChar(int x)
     {
         //Parse text:
         switch(x)
         {
-        //If it's enter
+        //If it's enter(on win/linux)
+        case '\n':
+        case '\r':
         case KEY_ENTER:
             //Return false
             return false;

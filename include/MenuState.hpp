@@ -12,14 +12,14 @@ namespace Taverner
     {
         public:
             //Creates menu with greet as top text, and options as menu positions.
-            MenuState();
+            MenuState(Csout& csout);
             ~MenuState() = default;
 
             void Pause();
             void Resume();
             void HandleEvents(std::string command);
             void Update(GameEngine* eng);
-            void Draw();
+            void Draw(Csout& csout);
 
         protected:
         private:

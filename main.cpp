@@ -5,19 +5,15 @@
 // TODO (malice#1#): Inspect multiwindows in ncurses
 #include "GameEngine.hpp"
 #include "csout.hpp"
+
 using namespace Taverner;
 
 int main(int argc, char* argv[])
 {
 
-
     GameEngine SUD;
-// TODO (malice#1#): Csout must be declared after GameEngine(or at least Initializer's constructor).
 
-    csout<< "Hello, world!";
-    getch();
-
-    //SUD.Run();
+    SUD.Run();
 
     return 0;
 }

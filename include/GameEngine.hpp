@@ -8,7 +8,7 @@
 #include "GameState.h"
 
 /// \brief Main engine class.
-
+#include "csout.hpp"
 #include "Parser.hpp"
 
 //Private inheritance of Initializer ensures initialization of systems before game starts
@@ -48,6 +48,7 @@ namespace Taverner
             std::vector<std::unique_ptr<GameState> > m_states;
             bool m_running;
             Parser m_parser;
+            Csout m_csout;
     };
 }
 #endif // GAMEENGINE_HPP

@@ -4,7 +4,7 @@
 
 namespace Taverner
 {
-    MenuState::MenuState() : userInput(-1)
+    MenuState::MenuState(Csout& csout) : userInput(-1)
     {
         //If I were Project Manager, I'd kill the programmer that would even suggest doing it that way
         //But since it's just Uni project... Sorry, Good Practice Spirit!
@@ -14,7 +14,7 @@ namespace Taverner
 
         //We need to draw everything, since after constructor we will ask for
         //input first - not wise to expect answer to question that wasn't asked, eh?
-        Draw();
+        Draw(csout);
     }
 
     void MenuState::Pause()
@@ -46,7 +46,7 @@ namespace Taverner
     {
 
     }
-    void MenuState::Draw()
+    void MenuState::Draw(Csout& csout)
     {
         if(!IsPaused())
         {
