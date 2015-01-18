@@ -8,7 +8,7 @@ namespace Taverner
     class Parser
     {
         std::string m_input;
-
+        bool parseChar(char x);
         public:
         std::string GetInput();
     };

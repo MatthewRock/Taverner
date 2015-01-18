@@ -9,6 +9,8 @@
 
 /// \brief Main engine class.
 
+#include "Parser.hpp"
+
 //Private inheritance of Initializer ensures initialization of systems before game starts
 namespace Taverner
 {
@@ -21,6 +23,7 @@ namespace Taverner
 
             inline void Run()
             {
+
                 while(IsRunning())
                 {
                     HandleEvents();
@@ -35,7 +38,7 @@ namespace Taverner
 
         private:
             void Update();
-            void HandleEngineEvents(char ch);
+            void HandleEngineEvents(std::string ch);
             void HandleEvents();
             void Draw();
 
@@ -44,6 +47,7 @@ namespace Taverner
 
             std::vector<std::unique_ptr<GameState> > m_states;
             bool m_running;
+            Parser m_parser;
     };
 }
 #endif // GAMEENGINE_HPP

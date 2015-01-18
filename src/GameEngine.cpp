@@ -22,12 +22,13 @@ namespace Taverner
     {
 
 // TODO (malice#1#): Change it for Parser.GetInput() or something
-        char ch = getch();
+
+        std::string ch = m_parser.GetInput();
         HandleEngineEvents(ch);
 
         for(auto& x : m_states)
         {
-            x->HandleEvents("test");
+            x->HandleEvents(ch);
         }
     }
 
@@ -39,9 +40,9 @@ namespace Taverner
         }
     }
 
-    void GameEngine::HandleEngineEvents(char ch)
+    void GameEngine::HandleEngineEvents(std::string ch)
     {
-        if(ch == 'q')
+        if(ch == "q")
         {
             Quit();
         }

@@ -36,6 +36,7 @@ namespace Taverner
         friend Csout& operator<< (Csout& stream, std::string val);
 
         void crMove(int x, int y);
+        inline void refresh() { wrefresh(win); }
         inline int MaxX() { return maxX; }
         inline int MaxY() { return maxY; }
     };
