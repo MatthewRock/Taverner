@@ -8,6 +8,10 @@ namespace Taverner
     {
         m_running = true;
         m_states.emplace_back(new MenuState(m_csout));
+        // Regex matching "exit", with anything before and after. Case-insensitive.
+        AddRegex(".*exit.*", COMMAND_EXIT);
+        AddRegex(".*go(\\s+.+\\s+|\\s+)north.*", COMMAND_GO);
+        //AddRegex(".*go.*north.*", COMMAND_GO);
     }
 
     void GameEngine::Update()
@@ -39,9 +43,28 @@ namespace Taverner
 
     void GameEngine::HandleEngineEvents(std::string ch)
     {
-        if(ch == "q")
+        int answerCode = COMMAND_N;
+        m_csout.CrMove(0,0);
+        clrtobot();
+        m_csout << "String: " << ch << endl;
+        for(auto& elem : m_commands)
         {
+            if(std::regex_match(ch, elem.first))
+            {
+                m_csout << "Regex matched!" << endl;
+                answerCode = elem.second;
+                break;
+            }
+        }
+        switch(answerCode)
+        {
+        case COMMAND_EXIT:
             Quit();
+            break;
+        case COMMAND_N:
+        default:
+            break;
+            //No command was choosen, or command unimplemented.
         }
     }
     void GameEngine::ChangeState(GameState* state)
@@ -72,4 +95,5 @@ namespace Taverner
             m_states.back()->Resume();
         }
     }
+
 }

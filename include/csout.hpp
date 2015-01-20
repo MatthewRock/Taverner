@@ -41,7 +41,7 @@ namespace Taverner
 
         inline int Getch()
         {
-            wgetch(m_win);
+            return wgetch(m_win);
         }
 
         void CrMove(int x, int y);

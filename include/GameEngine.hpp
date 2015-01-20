@@ -5,6 +5,7 @@
 
 #include <vector> // For stack of states
 #include <memory> // unique_ptr
+#include <regex> // For commands(regex)
 #include "GameState.h"
 
 /// \brief Main engine class.
@@ -41,6 +42,11 @@ namespace Taverner
             void HandleEngineEvents(std::string ch);
             void HandleEvents();
             void Draw();
+            inline void AddRegex(std::string text, int code)
+            {
+                //Add pair regex-code to vector. Regex is using ECMAScript dialect and is case insensitive.
+                m_commands.push_back(std::make_pair(std::regex(text, std::regex_constants::ECMAScript | std::regex_constants::icase), code));
+            }
 
             inline void Quit() { m_running = false; }
             inline bool IsRunning() { return m_running; }
@@ -49,6 +55,14 @@ namespace Taverner
             bool m_running;
             Parser m_parser;
             Csout m_csout;
+            //A vector of pairs: regex, and code (enum) for matching option.
+            std::vector<std::pair<std::regex, int> > m_commands;
+            enum COMMANDS
+            {
+                COMMAND_EXIT,
+                COMMAND_GO,
+                COMMAND_N,
+            };
     };
 }
 #endif // GAMEENGINE_HPP

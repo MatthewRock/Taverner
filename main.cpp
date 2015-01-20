@@ -17,6 +17,9 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+
+//Regex template:
+// .*go(\s+.+\s+|\s+)north.*/i
 //
 //Creature dialogue_newchar()
 //{
