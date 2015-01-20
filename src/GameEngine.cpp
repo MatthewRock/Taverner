@@ -11,7 +11,6 @@ namespace Taverner
         // Regex matching "exit", with anything before and after. Case-insensitive.
         AddRegex(".*exit.*", COMMAND_EXIT);
         AddRegex(".*go(\\s+.+\\s+|\\s+)north.*", COMMAND_GO);
-        //AddRegex(".*go.*north.*", COMMAND_GO);
     }
 
     void GameEngine::Update()

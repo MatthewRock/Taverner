@@ -1,8 +1,6 @@
 #include <iostream>
 
 #include <stdexcept>
-//TODO:
-// TODO (malice#1#): Inspect multiwindows in ncurses
 #include "GameEngine.hpp"
 #include "csout.hpp"
 
@@ -20,6 +18,7 @@ int main(int argc, char* argv[])
 
 //Regex template:
 // .*go(\s+.+\s+|\s+)north.*/i
+
 //
 //Creature dialogue_newchar()
 //{
