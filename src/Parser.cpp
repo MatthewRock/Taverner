@@ -6,7 +6,11 @@ namespace Taverner
 {
     std::string Parser::GetInput(Csout& csout)
     {
+        //Reset input string to nothing
         m_input = "";
+        //Add a space to prevent overwriting existing text that went out of screen.
+        //Side effect: this will make every output separated from other.
+        csout << endl << endl;
         //Move to the last row, and to the end of string.
         csout.CrMove(0 , csout.MaxY() - 1);
         //Print console prompt and clear line

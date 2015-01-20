@@ -15,7 +15,6 @@
 //Private inheritance of Initializer ensures initialization of systems before game starts
 namespace Taverner
 {
-
     class GameEngine : private Initializer
     {
         public:
@@ -24,7 +23,6 @@ namespace Taverner
 
             inline void Run()
             {
-
                 while(IsRunning())
                 {
                     HandleEvents();
@@ -57,7 +55,7 @@ namespace Taverner
             Csout m_csout;
             //A vector of pairs: regex, and code (enum) for matching option.
             std::vector<std::pair<std::regex, int> > m_commands;
-            enum COMMANDS
+            enum ENGINE_COMMANDS
             {
                 COMMAND_EXIT,
                 COMMAND_GO,

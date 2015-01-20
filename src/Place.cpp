@@ -1,6 +1,8 @@
 #include "Place.h"
-
-Place::Place()
+namespace Taverner
 {
-    //ctor
+    Place::Place()
+    {
+        //ctor
+    }
 }

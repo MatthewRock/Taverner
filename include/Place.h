@@ -1,19 +1,21 @@
-#ifndef PLACE_H
-#define PLACE_H
+#ifndef PLACE_HPP
+#define PLACE_HPP
 
 //Limitation: one creature per place.
-class Place
+namespace Taverner
 {
-    public:
-        Place();
-        PrintEverything();
-        PrintItems();
-        PrintCreatures();
+    class Place
+    {
+        public:
+            Place();
+            void PrintEverything();
+            void PrintItems();
+            void PrintCreatures();
 
-    protected:
-    private:
-        int x,y;
+        protected:
+        private:
+            int x,y;
 
-};
-
-#endif // PLACE_H
+    };
+}
+#endif // PLACE_HPP

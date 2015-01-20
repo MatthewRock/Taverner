@@ -34,6 +34,10 @@ namespace Taverner
 
     void GameEngine::Draw()
     {
+        //Clear screen
+        m_csout.CrMove(0,0);
+        clrtobot();
+
         for(auto& x : m_states)
         {
             x->Draw(m_csout);
@@ -43,8 +47,6 @@ namespace Taverner
     void GameEngine::HandleEngineEvents(std::string ch)
     {
         int answerCode = COMMAND_N;
-        m_csout.CrMove(0,0);
-        clrtobot();
         m_csout << "String: " << ch << endl;
         for(auto& elem : m_commands)
         {

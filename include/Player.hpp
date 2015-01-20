@@ -3,18 +3,22 @@
 
 #include <Creature.h>
 
-
-class Player : public Creature
+namespace Taverner
 {
-    public:
-        Player();
+    class Player : public Creature
+    {
+        public:
+            Player() = default;
+            void Move(int x, int y);
+            inline int GetX() { return m_x; }
+            inline int GetY() { return m_y; }
 
-        ~Player();
-    protected:
-    private:
-        int x,y;
-};
-
+            ~Player() = default;
+        protected:
+        private:
+            int m_x, m_y;
+    };
+}
 #endif // PLAYER_HPP
 
 //Scheme:

@@ -1,11 +1,10 @@
 #include "Player.hpp"
 
-Player::Player()
+namespace Taverner
 {
-    //ctor
-}
-
-Player::~Player()
-{
-    //dtor
+    void Player::Move(int x, int y)
+    {
+        m_x += x;
+        m_y += y;
+    }
 }
