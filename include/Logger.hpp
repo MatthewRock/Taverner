@@ -17,7 +17,6 @@ namespace Taverner
     protected:
         Logger();
         std::ofstream log;
-
         static Logger* m_instance;
     public:
         ~Logger();

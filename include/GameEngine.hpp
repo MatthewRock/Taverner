@@ -58,7 +58,6 @@ namespace Taverner
             enum ENGINE_COMMANDS
             {
                 COMMAND_EXIT,
-                COMMAND_GO,
                 COMMAND_N,
             };
     };

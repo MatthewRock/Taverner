@@ -1,16 +1,15 @@
 #include "GameEngine.hpp"
 
-#include "MenuState.hpp"
+#include "World.hpp"
 #include "csout.hpp"
 namespace Taverner
 {
     GameEngine::GameEngine()
     {
         m_running = true;
-        m_states.emplace_back(new MenuState(m_csout));
+        m_states.emplace_back(new World(m_csout));
         // Regex matching "exit", with anything before and after. Case-insensitive.
         AddRegex(".*exit.*", COMMAND_EXIT);
-        AddRegex(".*go(\\s+.+\\s+|\\s+)north.*", COMMAND_GO);
     }
 
     void GameEngine::Update()
@@ -24,6 +23,9 @@ namespace Taverner
     void GameEngine::HandleEvents()
     {
         std::string ch = m_parser.GetInput(m_csout);
+        //Clear screen
+        m_csout.CrMove(0,0);
+        clrtobot();
         HandleEngineEvents(ch);
 
         for(auto& x : m_states)
@@ -34,10 +36,6 @@ namespace Taverner
 
     void GameEngine::Draw()
     {
-        //Clear screen
-        m_csout.CrMove(0,0);
-        clrtobot();
-
         for(auto& x : m_states)
         {
             x->Draw(m_csout);

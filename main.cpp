@@ -8,10 +8,17 @@ using namespace Taverner;
 
 int main(int argc, char* argv[])
 {
+    try
+    {
+        GameEngine SUD;
 
-    GameEngine SUD;
+        SUD.Run();
+    }
+    catch(...)
+    {
+        return 1;
+    }
 
-    SUD.Run();
 
     return 0;
 }

@@ -9,8 +9,6 @@ namespace Taverner
         //If I were Project Manager, I'd kill the programmer that would even suggest doing it that way
         //But since it's just Uni project... Sorry, Good Practice Spirit!
         //Concrete class!
-        m_greet = "Welcome to Taverner! Please, select option:";
-        m_options = {"New game", "Choose scenario", "Credits", "Exit"};
 
         //We need to draw everything, since after constructor we will ask for
         //input first - not wise to expect answer to question that wasn't asked, eh?

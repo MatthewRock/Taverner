@@ -8,7 +8,7 @@ namespace Taverner
     class Player : public Creature
     {
         public:
-            Player() = default;
+            Player();
             void Move(int x, int y);
             inline int GetX() { return m_x; }
             inline int GetY() { return m_y; }
