@@ -15,6 +15,10 @@ namespace Taverner
         noecho();
         //Mode: allow using additional keys(F1, Enter, Tab, etc.) in stdscr.
         keypad(stdscr, TRUE);
+        //Allow using different colors
+        if(has_colors() == FALSE)
+            throw -1;
+        start_color();
         LOG_STRING("All systems initialized.");
     }
 

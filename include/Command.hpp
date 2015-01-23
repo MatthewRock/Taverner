@@ -8,7 +8,7 @@ namespace Taverner
         public:
             virtual ~Command() = default;
             virtual void Execute() = 0;
-            virtual void Draw() = 0;
+            virtual void Draw(Csout& csout) = 0;
         protected:
         private:
     };

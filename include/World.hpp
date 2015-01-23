@@ -11,11 +11,13 @@
 
 #include <regex> // Regex for commands
 #include <utility> // std::pair
-#include "csout.hpp"
-#include "Command.hpp"
+#include "csout.hpp" // Printing
+#include "Command.hpp" // Template for command Pattern classes
+#include "Place.h"
 
 namespace Taverner
 {
+    //List of commands that can be used and sent in the World.
     enum WORLD_COMMANDS
     {
         COMMAND_GO_NORTH,
@@ -24,10 +26,11 @@ namespace Taverner
         COMMAND_GO_EAST,
         COMMAND_N,
     };
+
     class World : public GameState
     {
         public:
-            World(Csout& printer);
+            World();
             void Pause();
             void Resume();
             void HandleEvents(std::string command);
@@ -41,24 +44,39 @@ namespace Taverner
             }
         protected:
         private:
-            void HandleWorldCommands(int code);
+            void HandleWorldCommands(int code, std::string& str);
             std::vector<std::pair<std::regex, int> > m_commands;
 
-            //The code that received command will be translated to
-            WORLD_COMMANDS resultCode;
-            Csout& m_csout;
+            void InitializeMap(std::string pathname);
+
             std::unique_ptr<Command> m_command;
             Player m_player;
+
+            // This vector will simulate 2D-array that will be extensible.
+            std::vector<Place> m_map;
+            unsigned m_mapX;
+            inline Place& GetLocation(int x, int y)
+            {
+                return m_map[x + y * m_mapX];
+            }
     };
 
+
+
+    /**< Below: Commands implementations */
+
+
+    //Class that allows us to invoke command "Go" on player.
     class CommandGo : public Command
     {
         int m_code;
-        Csout& m_csout;
         Player* m_player;
         public:
-            CommandGo(int code, Csout& csout, Player* player) : m_code(code), m_csout(csout), m_player(player) {}
-            void Draw() {}
+            CommandGo(int code, Player* player) : m_code(code), m_player(player) {}
+            void Draw(Csout& csout)
+            {
+                csout << "Player position: " << m_player->GetX() << " " << m_player->GetY() << endl;
+            }
             void Execute()
             {
                 switch(m_code)
@@ -80,8 +98,28 @@ namespace Taverner
                 default:
                     break;
                 }
-                    m_csout << "Player position: " << m_player->GetX() << " " << m_player->GetY() << endl;
             }
     };
+    class CommandWrite : public Command
+    {
+        std::string m_msg;
+        int m_color;
+        public:
+            CommandWrite(std::string message, int col = -1) : m_msg(message), m_color(col) {}
+            void Draw(Csout& csout)
+            {
+                if(m_color != -1)
+                {
+                    attron(COLOR_PAIR(m_color));
+                    csout << m_msg << endl;
+                    attroff(COLOR_PAIR(m_color));
+                }
+                else
+                    csout << m_msg << endl;
+
+            }
+            void Execute() {}
+    };
+
 }
 #endif // WORLD_HPP

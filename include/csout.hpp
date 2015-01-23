@@ -19,7 +19,13 @@ namespace Taverner
             initscr();
             m_win = w;
             getmaxyx(m_win, m_maxY, m_maxX);
-            LOG_STRING("In Csout constructor.");
+            //Create colors to use in later occurances.
+            init_pair(COLOR_RED, COLOR_RED, COLOR_BLACK);
+            init_pair(COLOR_GREEN, COLOR_GREEN, COLOR_BLACK);
+            init_pair(COLOR_YELLOW, COLOR_YELLOW, COLOR_BLACK);
+            init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
+            init_pair(COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
+            init_pair(COLOR_CYAN, COLOR_WHITE, COLOR_BLACK);
         };
         Csout(const Csout& x) = default;
 

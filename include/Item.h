@@ -16,6 +16,8 @@ namespace Taverner
         private:
             std::string name;
             std::string description;
+            int value;
+
     };
 }
 #endif // ITEM_H

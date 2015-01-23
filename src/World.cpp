@@ -3,7 +3,7 @@
 #include "Logger.hpp"
 namespace Taverner
 {
-    World::World(Csout& printer) : m_csout(printer)
+    World::World()
     {
         AddRegex(R"(.*go(\s+.+\s+|\s+)north.*)", COMMAND_GO_NORTH);
         AddRegex(R"(.*go(\s+.+\s+|\s+)south.*)", COMMAND_GO_SOUTH);
@@ -20,25 +20,19 @@ namespace Taverner
     }
     void World::HandleEvents(std::string command)
     {
-        //Translate command into code
-        LOG_STRING("In HandleEvents");
-        LOG_STRING(command.c_str());
+        //Assign default "error" message
         int resultCode = COMMAND_N;
+        //Check if any regex is found
         for(auto& element : m_commands)
         {
+            //If yes, get its code, and exit loop
             if(regex_match(command, element.first))
             {
                 resultCode = element.second;
                 break;
             }
         }
-        std::string str = "Result code:" + resultCode;
-        LOG_STRING(str);
-        //HandleWorldCommands(resultCode);
-        m_command = std::unique_ptr<Command>(new CommandGo(resultCode, m_csout, &m_player));
-// TODO (malice#1#): Wonder about how to actually handle events, so that Update and Draw can have an idea about what to do without passing command around.
-
-
+        HandleWorldCommands(resultCode, command);
     }
     void World::Update(GameEngine* eng)
     {
@@ -46,21 +40,24 @@ namespace Taverner
     }
     void World::Draw(Csout& csout)
     {
-
+        m_command->Draw(csout);
     }
-    void World::HandleWorldCommands(int code)
+    void World::HandleWorldCommands(int code, std::string& command)
     {
+        //Now we decide what command should be invoked.
         switch(code)
         {
-            //By default, print error message
+            //If we want to move, get CommandGo to work.
         case COMMAND_GO_EAST:
         case COMMAND_GO_NORTH:
         case COMMAND_GO_SOUTH:
         case COMMAND_GO_WEST:
-            m_csout << "Regex matched in World!" << endl;
+            m_command = std::unique_ptr<Command>(new CommandGo(code, &m_player));
             break;
+        //If there's no command or some bug happened, print error message
         case COMMAND_N:
         default:
+            m_command = std::unique_ptr<Command>(new CommandWrite("Command not recognized.", 1));
             break;
         }
     }

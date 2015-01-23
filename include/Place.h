@@ -1,6 +1,9 @@
 #ifndef PLACE_HPP
 #define PLACE_HPP
 
+#include <map>
+#include <string>
+#include "Item.h"
 //Limitation: one creature per place.
 namespace Taverner
 {
@@ -14,6 +17,7 @@ namespace Taverner
 
         protected:
         private:
+            std::map<std::string, Item> m_inventory;
             int x,y;
 
     };
