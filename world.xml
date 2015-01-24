@@ -15,6 +15,39 @@
 		<y>1</y>
 		<npc>1</npc> <!-- NPC's ID-->
 	</location>
+	<item type="weapon">
+		<name>Sword of Hefajstos</name>
+		<description>The sword forged by the God himself</description>
+		<atk>100</atk>
+		<def>100</def>
+		<val>999999</val>
+	</item>
+	<item type="weapon">
+		<name>Kajtek's Sword</name>
+		<description>Although blunt, Kajtek likes it for some reason</description>
+		<atk>15</atk>
+		<def>10</def>
+		<val>-1</val><!-- Not for sale - Kajtek doesn't want to sell it :) -->
+	</item>
+	<item type="armour">
+		<name>Atena's Helmet</name>
+		<description>Atena was wearing this helmet once. Now humans can use it in battle.</description>
+		<def>30</def>
+		<slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
+		<val>9999</val>
+	</item>
+	<item type="armour">
+		<name>Kajtek's Helmet</name>
+		<description>Actually it's ordinary hat.</description>
+		<def>1</def>
+		<slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
+		<val>5</val>
+	</item>
+	<item><!-- No type indicates "useless" item - trinket, something valuable. Nothing that player can use-->
+		<name>Horse trophy</name>
+		<description>This is a trophy obtained from horse</description>
+		<val>321</val>
+	</item>
 	<npc>
 	<!-- NPC's don't have health, they are untouchable. -->
 		<name>Eva Lu Ation</name>
