@@ -20,11 +20,14 @@ namespace Taverner
     //List of commands that can be used and sent in the World.
     enum WORLD_COMMANDS
     {
-        COMMAND_GO_NORTH,
-        COMMAND_GO_SOUTH,
-        COMMAND_GO_WEST,
-        COMMAND_GO_EAST,
-        COMMAND_N,
+        COMMAND_PLAYER_GO_NORTH,
+        COMMAND_PLAYER_GO_SOUTH,
+        COMMAND_PLAYER_GO_WEST,
+        COMMAND_PLAYER_GO_EAST,
+        COMMAND_PLAYER_WRITE_STATS,
+        COMMAND_PLAYER_WRITE_POS,
+        COMMAND_PLAYER_DELIMITER,
+        COMMAND_UNKNOWN_COMMAND,
     };
 
     class World : public GameState
@@ -66,8 +69,8 @@ namespace Taverner
     /**< Below: Commands implementations */
 
 
-    //Class that allows us to invoke command "Go" on player.
-    class CommandGo : public Command
+    //Class that allows us to invoke commands that relate to player.
+    class CommandPlayer : public Command
     {
         int m_code;
         Player* m_player;
@@ -75,7 +78,20 @@ namespace Taverner
             CommandGo(int code, Player* player) : m_code(code), m_player(player) {}
             void Draw(Csout& csout)
             {
-                csout << "Player position: " << m_player->GetX() << " " << m_player->GetY() << endl;
+                attron(COLOR_PAIR(COLOR_BLUE));
+                switch(m_code)
+                {
+                case COMMAND_PLAYER_WRITE_POS:
+                    csout << "Player position: " << m_player->GetX() << " " << m_player->GetY() << endl;
+                    break;
+                case COMMAND_PLAYER_WRITE_STATS:
+                    csout << "Write player stats." << endl;
+                    break;
+                default:
+                    csout << "OK" << endl;
+                    break;
+                }
+                attron(COLOR_PAIR(COLOR_BLUE));
             }
             void Execute()
             {
@@ -94,7 +110,6 @@ namespace Taverner
                 case COMMAND_GO_WEST:
                     m_player->Move(-1, 0);
                     break;
-                case COMMAND_N:
                 default:
                     break;
                 }

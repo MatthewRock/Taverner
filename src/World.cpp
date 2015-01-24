@@ -5,10 +5,12 @@ namespace Taverner
 {
     World::World()
     {
-        AddRegex(R"(.*go(\s+.+\s+|\s+)north.*)", COMMAND_GO_NORTH);
-        AddRegex(R"(.*go(\s+.+\s+|\s+)south.*)", COMMAND_GO_SOUTH);
-        AddRegex(R"(.*go(\s+.+\s+|\s+)west.*)", COMMAND_GO_WEST);
-        AddRegex(R"(.*go(\s+.+\s+|\s+)east.*)", COMMAND_GO_EAST);
+        AddRegex(R"(.*go(\s+.+\s+|\s+)north.*)",        COMMAND_PLAYER_GO_NORTH);
+        AddRegex(R"(.*go(\s+.+\s+|\s+)south.*)",        COMMAND_PLAYER_GO_SOUTH);
+        AddRegex(R"(.*go(\s+.+\s+|\s+)west.*)",         COMMAND_PLAYER_GO_WEST);
+        AddRegex(R"(.*go(\s+.+\s+|\s+)east.*)",         COMMAND_PLAYER_GO_EAST);
+        AddRegex(R"(.*my(\s+.+\s+|\s+)position.*)",     COMMAND_PLAYER_WRITE_POS);
+        AddRegex(R"(.*my(\s+.+\s+|\s+)statistics.*)",   COMMAND_PLAYER_WRITE_STATS);
     }
     void World::Pause()
     {
@@ -45,20 +47,15 @@ namespace Taverner
     void World::HandleWorldCommands(int code, std::string& command)
     {
         //Now we decide what command should be invoked.
-        switch(code)
+        if(code < COMMAND_PLAYER_DELIMITER) // If it's command related to player
         {
-            //If we want to move, get CommandGo to work.
-        case COMMAND_GO_EAST:
-        case COMMAND_GO_NORTH:
-        case COMMAND_GO_SOUTH:
-        case COMMAND_GO_WEST:
-            m_command = std::unique_ptr<Command>(new CommandGo(code, &m_player));
-            break;
-        //If there's no command or some bug happened, print error message
-        case COMMAND_N:
-        default:
-            m_command = std::unique_ptr<Command>(new CommandWrite("Command not recognized.", 1));
-            break;
+            //Send player command.
+            m_command = std::unique_ptr<Command>(new CommandPlayer(code, &m_player));
+        }//... other commands
+        else//If no command fits
+        {
+            //Send command to write error message. In red.
+            m_command = std::unique_ptr<Command>(new CommandWrite("Command not recognized.", COLOR_RED));
         }
     }
 }

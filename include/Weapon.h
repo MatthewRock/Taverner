@@ -8,16 +8,15 @@ namespace Taverner
     class Weapon : public Item
     {
         public:
-            Weapon() = default;
-            Weapon(std::string name, std::string description, unsigned dam, double hitCh) : Item(name, description), damage(dam), hitChanceMod(hitCh)
+            Weapon(std::string name, std::string description, int value, unsigned dam, int def)
+            : Item(name, description, value), m_damage(dam), m_defence(def)
             {
             }
             ~Weapon() = default;
 
-            unsigned damage;
-            double hitChanceMod;
-
         protected:
+            unsigned m_damage;
+            int m_defence;
         private:
     };
 }

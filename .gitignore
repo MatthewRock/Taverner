@@ -6,6 +6,8 @@
 #Resulting .o and binary files(and their directories)
 bin
 obj
+#Only now: pdcurses folder
+pdcurses
 
 # Compiled Object files
 *.slo
