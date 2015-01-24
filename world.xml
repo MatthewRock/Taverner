@@ -13,7 +13,17 @@
 		<description>Opis pałacowych ogrodów</description>
 		<x>0</x>
 		<y>1</y>
-		<npc>1</npc> <!-- NPC's ID-->
+		<npc>1</npc> <!-- Tutaj wrzuć definicję NPCa-->
+		<monster>
+			<spawnchance> <!-- 0-100% -->
+				20
+			</spawnchance>
+			<name>Rat</name>
+			<atk>10</atk>
+			<def>10</def>
+			<traits>a big rat</traits><!-- Wygeneruje: It's a big rat!-->
+									  <!-- Bez traits, domyślny string to "It doesn't have any special traits." -->
+		</monster>
 	</location>
 	<item type="weapon">
 		<name>Sword of Hefajstos</name>
@@ -51,7 +61,6 @@
 	<npc>
 	<!-- NPC's don't have health, they are untouchable. -->
 		<name>Eva Lu Ation</name>
-		<id>1</id>
 		<dialogue initializer="Dragon"> <!-- Translate it into regex: "(.*Eva Lu Ation(\s+.+\s+|\s+)Dragon.*", 
 											 matching e.g.: "Eva Lu Ation, what do you think about dragons?"-->
 			Dragons' are dangerous creatures. I'm happy that they haven't been seen around for a while

@@ -3,6 +3,8 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 #include <vector>
+#include <utility> //std::pair
+#include <regex>
 namespace Taverner
 {
     LocationParser::LocationParser(std::string filepath) : m_filepath(filepath)
@@ -37,9 +39,18 @@ namespace Taverner
                 vector.push_back(atoi(itm->value()));
             }
             // TODO (parchima#1#): Complete this function
+            //std::vector<NPC> npcVector;
             for(rapidxml::xml_node<>* npc = loc->first_node("NPC"); npc; npc = npc->next_sibling("NPC"))
             {
-                //Do something with NPC
+                std::string npcName = npc->first_node("name")->value();
+                //Pair regex : answer
+                std::vector<std::pair<std::regex, std::string> > npcDialogues;
+                for(rapidxml::xml_node<>* dialogue = npc->first_node("dialogue"); dialogue; dialogue = dialogue->next_sibling("dialogue"))
+                {
+                    std::string text = ".*" + npcName + R"((\s+.+\s+|\s+))" + dialogue->first_attribute()->value() + ".*;
+                    std::string response = dialogue->value();
+                    npcDialogues.push_back(std::make_pair(std::regex(text, std::regex_constants::ECMAScript | std::regex_constants::icase), response));
+                }
             }
             //Then emplace Place object with these properties to the vector
 

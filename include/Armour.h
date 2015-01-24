@@ -11,8 +11,7 @@ namespace Taverner
             enum Slot {Torso, Head, Shield, Legs, N};
             Armour(std::string name, std::string description, int val, unsigned def, Armour::Slot slot)
             : Item(name, description, val, ITEM_ARMOUR), m_defence(def), m_slot(slot)
-            {
-            }
+            {}
 
             ~Armour() = default;
         protected:

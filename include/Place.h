@@ -13,8 +13,7 @@ namespace Taverner
             Place();
             void PrintEverything();
             void PrintItems();
-            void PrintCreatures();
-
+            void PrintNPCs();
         protected:
         private:
             std::map<std::string, Item> m_inventory;
