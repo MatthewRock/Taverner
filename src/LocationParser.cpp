@@ -36,7 +36,7 @@ namespace Taverner
             {
                 vector.push_back(atoi(itm->value()));
             }
-
+            // TODO (parchima#1#): Complete this function
             for(rapidxml::xml_node<>* npc = loc->first_node("NPC"); npc; npc = npc->next_sibling("NPC"))
             {
                 //Do something with NPC

@@ -10,7 +10,7 @@ namespace Taverner
         public:
             enum Slot {Torso, Head, Shield, Legs, N};
             Armour(std::string name, std::string description, int val, unsigned def, Armour::Slot slot)
-            : Item(name, description, val), m_defence(def), m_slot(slot)
+            : Item(name, description, val, ITEM_ARMOUR), m_defence(def), m_slot(slot)
             {
             }
 

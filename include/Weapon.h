@@ -9,7 +9,7 @@ namespace Taverner
     {
         public:
             Weapon(std::string name, std::string description, int value, unsigned dam, int def)
-            : Item(name, description, value), m_damage(dam), m_defence(def)
+            : Item(name, description, value, ITEM_WEAPON), m_damage(dam), m_defence(def)
             {
             }
             ~Weapon() = default;
