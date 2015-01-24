@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<World>
+	<location>
+		<name>Pałac</name>
+		<description>Opis pałacu</description>
+		<x>0</x>
+		<y>0</y>
+		<item>3</item> <!-- Item's ID -->
+		<item>2</item>
+	</location>
+	<location>
+		<name>Pałacowe ogrody</name>
+		<description>Opis pałacowych ogrodów</description>
+		<x>0</x>
+		<y>1</y>
+		<npc>1</npc> <!-- NPC's ID-->
+	</location>
+	<npc>
+	<!-- NPC's don't have health, they are untouchable. -->
+		<name>Eva Lu Ation</name>
+		<id>1</id>
+		<dialogue initializer="Dragon"> <!-- Translate it into regex: "(.*Eva Lu Ation(\s+.+\s+|\s+)Dragon.*", 
+											 matching e.g.: "Eva Lu Ation, what do you think about dragons?"-->
+			Dragons' are dangerous creatures. I'm happy that they haven't been seen around for a while
+		</dialogue>
+		<dialogue initializer="Yourself">
+			Want to know something about me? I'm a woman. My name comes from sliced word Evaluation. I like trains.
+		</dialogue>
+	</npc>
+</World>
