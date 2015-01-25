@@ -53,7 +53,7 @@
 		<slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
 		<val>5</val>
 	</item>
-	<item><!-- No type indicates "useless" item - trinket, something valuable. Nothing that player can use-->
+	<item><!-- No type indicates "useless" item - trinket, something valuable. Nothing that player can use -->
 		<name>Horse trophy</name>
 		<description>This is a trophy obtained from horse</description>
 		<val>321</val>

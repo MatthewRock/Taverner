@@ -1,6 +1,8 @@
 #include "World.hpp"
 
 #include "Logger.hpp"
+#include "CommandWrite.hpp"
+
 namespace Taverner
 {
     World::World()
@@ -34,7 +36,20 @@ namespace Taverner
                 break;
             }
         }
-        HandleWorldCommands(resultCode, command);
+        //If no regex was found, continue searching:
+        if(resultCode == COMMAND_N)
+        {
+            for(auto& npc : m_npcs)
+            {
+                //Each NPC will check if this is his line
+                m_command = npc.HandleEvents(command);
+                //If it was, m_command will not be nullptr, so we can stop searching
+                if(m_command)
+                    break;
+            }
+        }
+        if(!m_command)
+            HandleWorldCommands(resultCode, command);
     }
     void World::Update(GameEngine* eng)
     {

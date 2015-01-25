@@ -14,7 +14,7 @@
 #include "csout.hpp" // Printing
 #include "Command.hpp" // Template for command Pattern classes
 #include "Place.h"
-
+#include "NPC.hpp"
 namespace Taverner
 {
     //List of commands that can be used and sent in the World.
@@ -47,27 +47,24 @@ namespace Taverner
             }
         protected:
         private:
-            void HandleWorldCommands(int code, std::string& str);
-            std::vector<std::pair<std::regex, int> > m_commands;
-
-            void InitializeMap(std::string pathname);
-
             std::unique_ptr<Command> m_command;
-            Player m_player;
+            std::vector<std::pair<std::regex, int> > m_commands;
+            std::vector<NPC> m_npcs;
 
+            Player m_player;
             // This vector will simulate 2D-array that will be extensible.
             std::vector<Place> m_map;
             unsigned m_mapX;
+
             inline Place& GetLocation(int x, int y)
             {
                 return m_map[x + y * m_mapX];
             }
+            void HandleWorldCommands(int code, std::string& str);
+            void InitializeMap(std::string pathname);
     };
 
-
-
     /**< Below: Commands implementations */
-
 
     //Class that allows us to invoke commands that relate to player.
     class CommandPlayer : public Command
@@ -115,26 +112,7 @@ namespace Taverner
                 }
             }
     };
-    class CommandWrite : public Command
-    {
-        std::string m_msg;
-        int m_color;
-        public:
-            CommandWrite(std::string message, int col = -1) : m_msg(message), m_color(col) {}
-            void Draw(Csout& csout)
-            {
-                if(m_color != -1)
-                {
-                    attron(COLOR_PAIR(m_color));
-                    csout << m_msg << endl;
-                    attroff(COLOR_PAIR(m_color));
-                }
-                else
-                    csout << m_msg << endl;
 
-            }
-            void Execute() {}
-    };
 
 }
 #endif // WORLD_HPP
