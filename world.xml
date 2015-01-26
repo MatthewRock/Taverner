@@ -1,72 +1,73 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <World>
-	<location>
-		<name>Pałac</name>
-		<description>Opis pałacu</description>
-		<x>0</x>
-		<y>0</y>
-		<item>3</item> <!-- Item's ID -->
-		<item>2</item>
-	</location>
-	<location>
-		<name>Pałacowe ogrody</name>
+  <location>
+    <name>Pałac</name>
+    <description>Opis pałacu</description>
+    <x>0</x>
+    <y>0</y>
+    <item>3</item> <!-- Item's ID -->
+    <item>2</item>
+    <npc>
+      <!-- NPC's don't have health, they are untouchable. -->
+      <name>Eva Lu Ation</name>
+      <description>She is a wise gardener.</description>
+      <dialogue initializer="Dragon"> <!-- Translate it into regex: "(.*Eva Lu Ation(\s+.+\s+|\s+)Dragon.*", 
+					   matching e.g.: "Eva Lu Ation, what do you think about dragons?"-->
+	Dragons' are dangerous creatures. I'm happy that they haven't been seen around for a while
+      </dialogue>
+      <dialogue initializer="Yourself">
+	Want to know something about me? I'm a woman. My name comes from sliced word Evaluation. I like trains.
+      </dialogue>
+    </npc>
+  </location>
+  <location>
+    <name>Pałacowe ogrody</name>
 		<description>Opis pałacowych ogrodów</description>
 		<x>0</x>
 		<y>1</y>
-		<npc>1</npc> <!-- Tutaj wrzuć definicję NPCa-->
 		<monster>
-			<spawnchance> <!-- 0-100% -->
-				20
-			</spawnchance>
-			<name>Rat</name>
-			<atk>10</atk>
-			<def>10</def>
-			<traits>a big rat</traits><!-- Wygeneruje: It's a big rat!-->
-									  <!-- Bez traits, domyślny string to "It doesn't have any special traits." -->
+		  <spawnchance> <!-- 0-100% -->
+		    20
+		  </spawnchance>
+		  <name>Rat</name>
+		  <atk>10</atk>
+		  <def>10</def>
+		  <traits>a big rat</traits><!-- Wygeneruje: It's a big rat!-->
+		  <!-- Bez traits, domyślny string to "It doesn't have any special traits." -->
 		</monster>
-	</location>
-	<item type="weapon">
-		<name>Sword of Hefajstos</name>
-		<description>The sword forged by the God himself</description>
-		<atk>100</atk>
-		<def>100</def>
-		<val>999999</val>
-	</item>
-	<item type="weapon">
-		<name>Kajtek's Sword</name>
-		<description>Although blunt, Kajtek likes it for some reason</description>
-		<atk>15</atk>
-		<def>10</def>
-		<val>-1</val><!-- Not for sale - Kajtek doesn't want to sell it :) -->
-	</item>
-	<item type="armour">
-		<name>Atena's Helmet</name>
-		<description>Atena was wearing this helmet once. Now humans can use it in battle.</description>
-		<def>30</def>
-		<slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
-		<val>9999</val>
-	</item>
-	<item type="armour">
-		<name>Kajtek's Helmet</name>
-		<description>Actually it's ordinary hat.</description>
-		<def>1</def>
-		<slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
-		<val>5</val>
-	</item>
-	<item><!-- No type indicates "useless" item - trinket, something valuable. Nothing that player can use -->
-		<name>Horse trophy</name>
-		<description>This is a trophy obtained from horse</description>
-		<val>321</val>
-	</item>
-	<npc>
-	<!-- NPC's don't have health, they are untouchable. -->
-		<name>Eva Lu Ation</name>
-		<dialogue initializer="Dragon"> <!-- Translate it into regex: "(.*Eva Lu Ation(\s+.+\s+|\s+)Dragon.*", 
-											 matching e.g.: "Eva Lu Ation, what do you think about dragons?"-->
-			Dragons' are dangerous creatures. I'm happy that they haven't been seen around for a while
-		</dialogue>
-		<dialogue initializer="Yourself">
-			Want to know something about me? I'm a woman. My name comes from sliced word Evaluation. I like trains.
-		</dialogue>
-	</npc>
+  </location>
+  <item type="weapon">
+    <name>Sword of Hefajstos</name>
+    <description>The sword forged by the God himself</description>
+    <atk>100</atk>
+    <def>100</def>
+    <val>999999</val>
+  </item>
+  <item type="weapon">
+    <name>Kajtek's Sword</name>
+    <description>Although blunt, Kajtek likes it for some reason</description>
+    <atk>15</atk>
+    <def>10</def>
+    <val>-1</val><!-- Not for sale - Kajtek doesn't want to sell it :) -->
+  </item>
+  <item type="armour">
+    <name>Atena's Helmet</name>
+    <description>Atena was wearing this helmet once. Now humans can use it in battle.</description>
+    <def>30</def>
+    <slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
+    <val>9999</val>
+  </item>
+  <item type="armour">
+    <name>Kajtek's Helmet</name>
+    <description>Actually it's ordinary hat.</description>
+    <ID>1</ID>
+    <def>1</def>
+    <slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
+    <val>5</val>
+  </item>
+  <item><!-- No type indicates "useless" item - trinket, something valuable. Nothing that player can use -->
+    <name>Horse trophy</name>
+    <description>This is a trophy obtained from horse</description>
+    <val>321</val>
+  </item>
 </World>

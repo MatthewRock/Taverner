@@ -2,6 +2,7 @@
 
 #include "Logger.hpp"
 #include "CommandWrite.hpp"
+#include "LocationParser.hpp"
 
 namespace Taverner
 {
@@ -13,6 +14,11 @@ namespace Taverner
         AddRegex(R"(.*go(\s+.+\s+|\s+)east.*)",         COMMAND_PLAYER_GO_EAST);
         AddRegex(R"(.*my(\s+.+\s+|\s+)position.*)",     COMMAND_PLAYER_WRITE_POS);
         AddRegex(R"(.*my(\s+.+\s+|\s+)statistics.*)",   COMMAND_PLAYER_WRITE_STATS);
+        LocationParser parser("world.xml");
+// TODO (s407267#1#): Format correctly somethingsomething
+//Vector acces violation: corrupted memory accessed. Fix it.
+        unsigned mapY;
+        m_map = parser.Parse();
     }
     void World::Pause()
     {
@@ -25,7 +31,8 @@ namespace Taverner
     void World::HandleEvents(std::string command)
     {
         //Assign default "error" message
-        int resultCode = COMMAND_N;
+        int resultCode = COMMAND_UNKNOWN_COMMAND;
+        m_command = nullptr;
         //Check if any regex is found
         for(auto& element : m_commands)
         {
@@ -37,17 +44,16 @@ namespace Taverner
             }
         }
         //If no regex was found, continue searching:
-        if(resultCode == COMMAND_N)
+        if(resultCode == COMMAND_UNKNOWN_COMMAND)
         {
-            for(auto& npc : m_npcs)
-            {
-                //Each NPC will check if this is his line
-                m_command = npc.HandleEvents(command);
-                //If it was, m_command will not be nullptr, so we can stop searching
-                if(m_command)
-                    break;
-            }
+
+            //Each NPC will check if this is his line
+            m_command = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()))->second.HandleEvents(command);
+            //If it was, m_command will not be nullptr, so we can stop searching
+// TODO (s407267#1#): NPC Not found
+
         }
+
         if(!m_command)
             HandleWorldCommands(resultCode, command);
     }

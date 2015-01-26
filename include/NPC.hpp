@@ -13,8 +13,7 @@ namespace Taverner
     class NPC
     {
         public:
-            NPC(std::string name, std::string desc, std::vector<std::pair<std::regex, std::string> > dialogues)
-                : m_name(name), m_description(desc), m_dialogues(dialogues) {}
+            NPC(std::string name, std::string desc, std::vector<std::pair<std::regex, std::string> > dialogues);
                 //Check if command can match regex. If yes, return command that will print output. Otherwise nullptr
                 std::unique_ptr<Command> HandleEvents(std::string command);
                 inline std::string GetName() { return m_name; }

@@ -2,7 +2,8 @@
 #define LOCATIONPARSER_HPP
 
 #include <string>
-#include <vector>
+#include <map>
+#include <utility> //std::pair
 #include "Place.h"
 
 namespace Taverner
@@ -11,10 +12,15 @@ namespace Taverner
     {
         public:
             LocationParser(std::string filepath);
-            std::vector<Place> Parse();
+            //This will return hash table of places. Places can be accessed by two ints: X and Y of place.
+            std::map<std::pair<int, int>,  Place> Parse();
         protected:
         private:
             std::string m_filepath;
+            inline int GetLocation(int x, int y, int m_mapX)
+            {
+                return x + y * m_mapX;
+            }
     };
 }
 

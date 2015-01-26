@@ -17,6 +17,9 @@ namespace Taverner
         protected:
         private:
             int m_x, m_y;
+// TODO (s407267#1#): Implement attack and stats
+            int m_atk, m_def;
+
     };
 }
 #endif // PLAYER_HPP

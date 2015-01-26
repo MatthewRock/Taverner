@@ -21,6 +21,12 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+//TODO:
+//1) Make it so that I can finally find NPC
+//2) Implement items
+//3) Implement looking at things
+//4) Implement monsters and fight
+
 
 //Regex template:
 // .*go(\s+.+\s+|\s+)north.*/i

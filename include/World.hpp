@@ -10,11 +10,15 @@
 #include "GameState.h"
 
 #include <regex> // Regex for commands
+#include <map>
 #include <utility> // std::pair
 #include "csout.hpp" // Printing
 #include "Command.hpp" // Template for command Pattern classes
 #include "Place.h"
 #include "NPC.hpp"
+
+// TODO (s407267#1#): Add parsing items as separate parser
+
 namespace Taverner
 {
     //List of commands that can be used and sent in the World.
@@ -49,17 +53,11 @@ namespace Taverner
         private:
             std::unique_ptr<Command> m_command;
             std::vector<std::pair<std::regex, int> > m_commands;
-            std::vector<NPC> m_npcs;
 
             Player m_player;
             // This vector will simulate 2D-array that will be extensible.
-            std::vector<Place> m_map;
-            unsigned m_mapX;
+            std::map<std::pair<int, int>, Place> m_map;
 
-            inline Place& GetLocation(int x, int y)
-            {
-                return m_map[x + y * m_mapX];
-            }
             void HandleWorldCommands(int code, std::string& str);
             void InitializeMap(std::string pathname);
     };
@@ -72,7 +70,7 @@ namespace Taverner
         int m_code;
         Player* m_player;
         public:
-            CommandGo(int code, Player* player) : m_code(code), m_player(player) {}
+            CommandPlayer(int code, Player* player) : m_code(code), m_player(player) {}
             void Draw(Csout& csout)
             {
                 attron(COLOR_PAIR(COLOR_BLUE));
@@ -88,23 +86,23 @@ namespace Taverner
                     csout << "OK" << endl;
                     break;
                 }
-                attron(COLOR_PAIR(COLOR_BLUE));
+                attroff(COLOR_PAIR(COLOR_BLUE));
             }
             void Execute()
             {
                 switch(m_code)
                 {
                     //By default, print error message
-                case COMMAND_GO_EAST:
+                case COMMAND_PLAYER_GO_EAST:
                     m_player->Move(1, 0);
                     break;
-                case COMMAND_GO_NORTH:
+                case COMMAND_PLAYER_GO_NORTH:
                     m_player->Move(0, 1);
                     break;
-                case COMMAND_GO_SOUTH:
+                case COMMAND_PLAYER_GO_SOUTH:
                     m_player->Move(0, -1);
                     break;
-                case COMMAND_GO_WEST:
+                case COMMAND_PLAYER_GO_WEST:
                     m_player->Move(-1, 0);
                     break;
                 default:

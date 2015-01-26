@@ -1,6 +1,8 @@
 #ifndef COMMAND_HPP
 #define COMMAND_HPP
 
+#include "csout.hpp"
+
 namespace Taverner
 {
     class Command
