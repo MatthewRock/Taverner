@@ -6,8 +6,9 @@
 #Resulting .o and binary files(and their directories)
 bin
 obj
-#Only now: pdcurses folder
+#for lib
 pdcurses
+rapidxml
 
 # Compiled Object files
 *.slo
