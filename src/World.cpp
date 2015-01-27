@@ -73,7 +73,7 @@ namespace Taverner
         if(m_player.Moved())
         {
 // TODO (s407267#1#): CONTINUE HERE
-
+// Current: inspect ItemsBank and see why it doesnt work
             //Unflag his move
             m_player.NoMove();
             //Look for his current location and print it.
@@ -81,8 +81,7 @@ namespace Taverner
             if(place != m_map.end())
                 place->second.PrintEverything(csout);
         }
-        csout << endl << "Debug: " <<
-
+        //csout << endl << "Debug: " << ItemsBank::GetInstance().GetItem(4)->GetName();
     }
     void World::HandleWorldCommands(int code, std::string& command)
     {

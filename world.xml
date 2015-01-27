@@ -5,7 +5,7 @@
     <description>It's really beautiful palace. The architect was genius, that is sure.</description>
     <x>0</x>
     <y>0</y>
-    <item quantity="5">3</item> <!-- Item's ID -->
+    <item quantity="5">4</item> <!-- Item's ID -->
     <item quantity="12">2</item>
     <npc>
       <!-- NPC's don't have health, they are untouchable. -->

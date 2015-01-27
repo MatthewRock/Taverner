@@ -7,7 +7,7 @@ namespace Taverner
         : m_name(name), m_x(x), m_y(y), m_desc(desc), m_npcs(npcs), m_items(items)
     {
 // TODO (s407267#1#): Insert regex to look around, at items, etc.
-
+//Insert command "Describe surroundings"
 
     }
     void Place::PrintEverything(Csout& csout)

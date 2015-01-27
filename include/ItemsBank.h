@@ -12,8 +12,8 @@ namespace Taverner
     class ItemsBank
     {
         public:
-            ~ItemsBank() = default;
-            void AddItem(int index, std::unique_ptr<Item> item);
+            ~ItemsBank();
+            void AddItem(int index, Item* item);
             Item* GetItem(int index);
             static ItemsBank& GetInstance();
 
@@ -22,7 +22,7 @@ namespace Taverner
             ItemsBank(ItemsBank const&);
             void operator=(ItemsBank const&);
         private:
-            std::map<int, std::unique_ptr<Item> > m_items;
+            std::map<int, Item* > m_items;
     };
 }
 
