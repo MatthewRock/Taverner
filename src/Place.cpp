@@ -6,10 +6,12 @@ namespace Taverner
     {
 // TODO (s407267#1#): Insert regex to look around, at items, etc.
 
+
     }
     void Place::PrintEverything(Csout& csout)
     {
-
+        csout << "You are at " << m_name << endl;
+        PrintNPCs(csout);
     }
     void Place::PrintItems(Csout& csout)
     {
@@ -17,7 +19,10 @@ namespace Taverner
     }
     void Place::PrintNPCs(Csout& csout)
     {
-
+        for(auto& npc : m_npcs)
+        {
+            csout << "You see " << npc.GetName() << endl;
+        }
     }
     std::unique_ptr<Command> Place::HandleEvents(std::string command)
     {

@@ -14,7 +14,6 @@ namespace Taverner
     class Place
     {
         public:
-// TODO (s407267#1#): Get this shit moving
             Place(std::string name, std::string desc, int x, int y, std::vector<NPC>&& npcs);
             void PrintEverything(Csout& csout);
             void PrintItems(Csout& csout);
@@ -26,6 +25,7 @@ namespace Taverner
             std::string m_name;
             std::string m_desc;
             std::vector<NPC> m_npcs;
+            std::vector<std::pair<std::regex, std::string> > m_dialogues;
     };
 }
 #endif // PLACE_HPP

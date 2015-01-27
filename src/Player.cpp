@@ -11,5 +11,6 @@ namespace Taverner
     {
         m_x += x;
         m_y += y;
+        m_moved = true;
     }
 }

@@ -7,7 +7,7 @@ namespace Taverner
     GameEngine::GameEngine()
     {
         m_running = true;
-        m_states.emplace_back(new World());
+        m_states.emplace_back(new World(m_csout));
         // Regex matching "exit", with anything before and after. Case-insensitive.
         AddRegex(".*exit.*", COMMAND_EXIT);
     }

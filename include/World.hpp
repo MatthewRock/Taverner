@@ -37,7 +37,7 @@ namespace Taverner
     class World : public GameState
     {
         public:
-            World();
+            World(Csout& csout);
             void Pause();
             void Resume();
             void HandleEvents(std::string command);
@@ -73,7 +73,7 @@ namespace Taverner
             CommandPlayer(int code, Player* player) : m_code(code), m_player(player) {}
             void Draw(Csout& csout)
             {
-                attron(COLOR_PAIR(COLOR_BLUE));
+                attron(COLOR_PAIR(COLOR_YELLOW));
                 switch(m_code)
                 {
                 case COMMAND_PLAYER_WRITE_POS:
@@ -86,7 +86,7 @@ namespace Taverner
                     csout << "OK" << endl;
                     break;
                 }
-                attroff(COLOR_PAIR(COLOR_BLUE));
+                attroff(COLOR_PAIR(COLOR_YELLOW));
             }
             void Execute()
             {

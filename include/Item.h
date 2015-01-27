@@ -18,6 +18,7 @@ namespace Taverner
             : m_name(nam), m_description(desc), m_value(val), m_type(type)
             {}
             ~Item() = default;
+            inline ITEM_TYPE GetType() { return m_type; }
         protected:
             std::string m_name;
             std::string m_description;

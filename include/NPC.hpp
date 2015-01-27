@@ -14,7 +14,7 @@ namespace Taverner
     {
         public:
             NPC(std::string name, std::string desc, std::vector<std::pair<std::regex, std::string> > dialogues);
-                //Check if command can match regex. If yes, return command that will print output. Otherwise nullptr
+                //Checks if command can match regex. If yes, return command that will print output. Otherwise nullptr
                 std::unique_ptr<Command> HandleEvents(std::string command);
                 inline std::string GetName() { return m_name; }
                 inline std::string GetDescription() { return m_description; }

@@ -14,11 +14,14 @@ namespace Taverner
             inline int GetY() { return m_y; }
 
             ~Player() = default;
+            inline bool Moved() { return m_moved; }
+            inline void NoMove() { m_moved = false; }
         protected:
         private:
             int m_x, m_y;
 // TODO (s407267#1#): Implement attack and stats
             int m_atk, m_def;
+            bool m_moved;
 
     };
 }

@@ -6,7 +6,7 @@
 
 namespace Taverner
 {
-    World::World()
+    World::World(Csout& csout)
     {
         AddRegex(R"(.*go(\s+.+\s+|\s+)north.*)",        COMMAND_PLAYER_GO_NORTH);
         AddRegex(R"(.*go(\s+.+\s+|\s+)south.*)",        COMMAND_PLAYER_GO_SOUTH);
@@ -19,6 +19,8 @@ namespace Taverner
 //Vector acces violation: corrupted memory accessed. Fix it.
         unsigned mapY;
         m_map = parser.Parse();
+        //Print starting location's info
+        m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()))->second.PrintEverything(csout);
     }
     void World::Pause()
     {
@@ -47,11 +49,13 @@ namespace Taverner
         if(resultCode == COMMAND_UNKNOWN_COMMAND)
         {
 
-            //Each NPC will check if this is his line
-            m_command = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()))->second.HandleEvents(command);
+            //Find current x and y's location.
+            auto place = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()));
+            //If no location found(normally this shouldn't happen), do nothing.
+            if(place != m_map.end())
+                //Otherwise look for regex etc.
+                m_command = place->second.HandleEvents(command);
             //If it was, m_command will not be nullptr, so we can stop searching
-// TODO (s407267#1#): NPC Not found
-
         }
 
         if(!m_command)
@@ -64,6 +68,17 @@ namespace Taverner
     void World::Draw(Csout& csout)
     {
         m_command->Draw(csout);
+        //If player has moved
+        if(m_player.Moved())
+        {
+            //Unflag his move
+            m_player.NoMove();
+            //Look for his current location and print it.
+            auto place = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()));
+            if(place != m_map.end())
+                place->second.PrintEverything(csout);
+        }
+
     }
     void World::HandleWorldCommands(int code, std::string& command)
     {

@@ -6,6 +6,8 @@
 #include <utility> //std::pair
 #include <regex>
 #include "NPC.hpp"
+#include "Logger.hpp"
+#include <algorithm> //find_if
 namespace Taverner
 {
     LocationParser::LocationParser(std::string filepath) : m_filepath(filepath)
@@ -39,22 +41,35 @@ namespace Taverner
             std::vector<NPC> npcVector;
 
             //If there are any items, load their IDS
-            for(rapidxml::xml_node<>* itm = doc.first_node("World")->first_node("item"); itm; itm = itm->next_sibling("item"))
+            for(rapidxml::xml_node<>* itm = loc->first_node("item"); itm; itm = itm->next_sibling("item"))
             {
                 itemIdVector.push_back(atoi(itm->value()));
             }
 
             //If there are any NPCs, load them to vector
-            for(rapidxml::xml_node<>* npc = doc.first_node("World")->first_node("npc"); npc; npc = npc->next_sibling("npc"))
+            LOG_STRING("If nothing is below me, no NPC was created");
+            for(rapidxml::xml_node<>* npc = loc->first_node("npc"); npc; npc = npc->next_sibling("npc"))
             {
+                LOG_STRING("Creating NPC:");
                 std::string npcName = npc->first_node("name")->value();
+                LOG_STRING(npcName);
                 std::string npcDesc = npc->first_node("description")->value();
+                LOG_STRING(npcDesc);
                 //Pair regex - answer
                 std::vector<std::pair<std::regex, std::string> > npcDialogues;
                 for(rapidxml::xml_node<>* dialogue = npc->first_node("dialogue"); dialogue; dialogue = dialogue->next_sibling("dialogue"))
                 {
                     std::string text = ".*" + npcName + R"((\s+.+\s+|\s+))" + dialogue->first_attribute()->value() + ".*";
                     std::string response = dialogue->value();
+                    //Trim the value - because string comes in raw form, it can contain unnecessary whitespaces.
+                    response = regex_replace(response, std::regex("\\s+"), " ");
+                    //Change all whitespace to space
+                    //If string had leading whitespace, remove it.
+                    if(response[0] == ' ')
+                        response.erase(response.begin());
+
+                    LOG_STRING(text);
+                    LOG_STRING(response);
                     npcDialogues.push_back(std::make_pair(std::regex(text, std::regex_constants::ECMAScript | std::regex_constants::icase), response));
                 }
                 npcVector.emplace_back(npcName, npcDesc, npcDialogues);
