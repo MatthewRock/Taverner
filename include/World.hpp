@@ -16,6 +16,7 @@
 #include "Command.hpp" // Template for command Pattern classes
 #include "Place.h"
 #include "NPC.hpp"
+#include "ItemsBank.h"
 
 // TODO (s407267#1#): Add parsing items as separate parser
 

@@ -5,8 +5,8 @@
     <description>It's really beautiful palace. The architect was genius, that is sure.</description>
     <x>0</x>
     <y>0</y>
-    <item>3</item> <!-- Item's ID -->
-    <item>2</item>
+    <item quantity="5">3</item> <!-- Item's ID -->
+    <item quantity="12">2</item>
     <npc>
       <!-- NPC's don't have health, they are untouchable. -->
       <name>Eva Lu Ation</name>
@@ -42,6 +42,7 @@
     <atk>100</atk>
     <def>100</def>
     <val>999999</val>
+    <ID>0</ID>
   </item>
   <item type="weapon">
     <name>Kajtek's Sword</name>
@@ -49,6 +50,7 @@
     <atk>15</atk>
     <def>10</def>
     <val>-1</val><!-- Not for sale - Kajtek doesn't want to sell it :) -->
+    <ID>1</ID>
   </item>
   <item type="armour">
     <name>Atena's Helmet</name>
@@ -56,11 +58,12 @@
     <def>30</def>
     <slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
     <val>9999</val>
+    <ID>2</ID>
   </item>
   <item type="armour">
     <name>Kajtek's Helmet</name>
     <description>Actually it's ordinary hat.</description>
-    <ID>1</ID>
+    <ID>3</ID>
     <def>1</def>
     <slot>0</slot><!-- Slot for armor. you have to remember it, will be listed here soon. Easiest way.-->
     <val>5</val>
@@ -69,5 +72,6 @@
     <name>Horse trophy</name>
     <description>This is a trophy obtained from horse</description>
     <val>321</val>
+    <ID>4</ID>
   </item>
 </World>

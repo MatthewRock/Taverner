@@ -9,9 +9,14 @@ namespace Taverner
 
         return nullptr;
     }
-
     void ItemsBank::AddItem(int index, std::unique_ptr<Item> item)
     {
         m_items.emplace(index, std::move(item));
+    }
+    ItemsBank& ItemsBank::GetInstance()
+    {
+        static ItemsBank instance;
+
+        return instance;
     }
 }

@@ -9,14 +9,14 @@ namespace Taverner
     {
         public:
             enum Slot {Torso, Head, Shield, Legs, N};
-            Armour(std::string name, std::string description, int val, unsigned def, Armour::Slot slot)
+            Armour(std::string name, std::string description, int val, unsigned def, int slot)
             : Item(name, description, val, ITEM_ARMOUR), m_defence(def), m_slot(slot)
             {}
 
             ~Armour() = default;
         protected:
             unsigned m_defence;
-            Slot m_slot;
+            int m_slot;
         private:
     };
 }

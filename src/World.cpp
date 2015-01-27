@@ -3,6 +3,8 @@
 #include "Logger.hpp"
 #include "CommandWrite.hpp"
 #include "LocationParser.hpp"
+#include "ItemParser.hpp"
+#include "ItemsBank.h"
 
 namespace Taverner
 {
@@ -15,9 +17,8 @@ namespace Taverner
         AddRegex(R"(.*my(\s+.+\s+|\s+)position.*)",     COMMAND_PLAYER_WRITE_POS);
         AddRegex(R"(.*my(\s+.+\s+|\s+)statistics.*)",   COMMAND_PLAYER_WRITE_STATS);
         LocationParser parser("world.xml");
-// TODO (s407267#1#): Format correctly somethingsomething
-//Vector acces violation: corrupted memory accessed. Fix it.
-        unsigned mapY;
+        ItemParser parser2("world.xml");
+        parser2.Parse();
         m_map = parser.Parse();
         //Print starting location's info
         m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()))->second.PrintEverything(csout);
@@ -71,6 +72,8 @@ namespace Taverner
         //If player has moved
         if(m_player.Moved())
         {
+// TODO (s407267#1#): CONTINUE HERE
+
             //Unflag his move
             m_player.NoMove();
             //Look for his current location and print it.
@@ -78,6 +81,7 @@ namespace Taverner
             if(place != m_map.end())
                 place->second.PrintEverything(csout);
         }
+        csout << endl << "Debug: " <<
 
     }
     void World::HandleWorldCommands(int code, std::string& command)

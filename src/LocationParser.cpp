@@ -6,7 +6,6 @@
 #include <utility> //std::pair
 #include <regex>
 #include "NPC.hpp"
-#include "Logger.hpp"
 #include <algorithm> //find_if
 namespace Taverner
 {
@@ -34,16 +33,23 @@ namespace Taverner
             //Get its properties
             std::string name = loc->first_node("name")->value();
             std::string desc = loc->first_node("description")->value();
-            int x = atoi(loc->first_node("x")->value());
-            int y = atoi(loc->first_node("y")->value());
+            int x = std::stoi(loc->first_node("x")->value());
+            int y = std::stoi(loc->first_node("y")->value());
             //Everything above will build skeleton of location. Now, put NPCS and items in it.
-            std::vector<int> itemIdVector;
+            std::vector<std::pair<int, int> > itemIdVector;
             std::vector<NPC> npcVector;
 
             //If there are any items, load their IDS
             for(rapidxml::xml_node<>* itm = loc->first_node("item"); itm; itm = itm->next_sibling("item"))
             {
-                itemIdVector.push_back(atoi(itm->value()));
+                LOG_STRING("No segfault yet. No itm initialized.");
+                auto qt = itm->first_attribute("quantity");
+                int quantity = 1;
+                if(itm)
+                    quantity = std::stoi(qt->value());
+
+                itemIdVector.push_back(std::make_pair(std::stoi(itm->value()), quantity));
+                LOG_STRING("No segfault yet. Pushed vector");
             }
 
             //If there are any NPCs, load them to vector
@@ -78,7 +84,7 @@ namespace Taverner
 // TODO (s407267#1#): Add monsters and allow parsing them here
             //Then emplace Place object with these properties to the vector
 
-            result.emplace(std::make_pair(x,y), Place(name, desc, x, y, std::move(npcVector)));
+            result.emplace(std::make_pair(x,y), Place(name, desc, x, y, std::move(npcVector), std::move(itemIdVector)));
 
         }
         return result;

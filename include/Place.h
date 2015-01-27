@@ -14,7 +14,7 @@ namespace Taverner
     class Place
     {
         public:
-            Place(std::string name, std::string desc, int x, int y, std::vector<NPC>&& npcs);
+            Place(std::string name, std::string desc, int x, int y, std::vector<NPC>&& npcs, std::vector<std::pair<int, int> >&& items);
             void PrintEverything(Csout& csout);
             void PrintItems(Csout& csout);
             void PrintNPCs(Csout& csout);
@@ -25,6 +25,8 @@ namespace Taverner
             std::string m_name;
             std::string m_desc;
             std::vector<NPC> m_npcs;
+            //Item ID, quantity
+            std::vector<std::pair<int, int> > m_items;
             std::vector<std::pair<std::regex, std::string> > m_dialogues;
     };
 }
