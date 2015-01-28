@@ -12,6 +12,7 @@ namespace Taverner
 //Insert command "Describe surroundings"
             m_lookCommand       = std::regex (".*look.*", std::regex_constants::ECMAScript | std::regex_constants::icase);
             m_lookAroundCommand = std::regex(R"(.*look.*(\s+.+\s+|\s+)around.*)", std::regex_constants::ECMAScript | std::regex_constants::icase);
+            m_takeCommand       = std::regex(R"(.*take.*)", std::regex_constants::ECMAScript | std::regex_constants::icase);
 
     }
     void Place::PrintEverything(Csout& csout)
@@ -41,7 +42,7 @@ namespace Taverner
             csout << "You see " << npc.GetName() << endl;
         }
     }
-    std::unique_ptr<Command> Place::HandleEvents(std::string command)
+    std::unique_ptr<Command> Place::HandleEvents(std::string& command)
     {
         std::unique_ptr<Command> cmd = nullptr;
         for(auto& npc : m_npcs)
@@ -51,43 +52,88 @@ namespace Taverner
             if(cmd)
                 return cmd;
         }
-        //If we want to look around
-        LOG_STRING("Npc look failed, looking around");
+        //To look at everything except NPC(npc handle it themselves)
+        cmd = HandleLookCommand(command);
+        //if player wanted to look, send command, otherwise continue
+        if(cmd)
+            return cmd;
+
+        cmd = HandleTakeCommand(command);
+        if(cmd)
+            return cmd;
+
+
+    }
+    std::unique_ptr<Command> Place::HandleLookCommand(std::string& command)
+    {
+        std::unique_ptr<Command> cmd = nullptr;
+        //If player wants to "look around"
         if(regex_match(command, m_lookAroundCommand))
         {
-            LOG_STRING("Look around matched");
+            //Print description of the place we're at.
             cmd = std::unique_ptr<Command>(new CommandWrite(m_desc));
-            LOG_STRING("And created");
             return cmd;
-            //Print everything and description of surroundings
         }
         //If we want to look at something's that's not NPC
         if(regex_match(command, m_lookCommand))
         {
-            LOG_STRING("Look around failed but look matched");
             for(auto& item_pair : m_items)
             {
-                LOG_STRING("Iterating over elements in items");
                 auto itm = ItemsBank::GetInstance().GetItem(item_pair.first);
                 std::string nameRegexStr = "";
                 //If item exists(no error), print it.
                 if(itm)
                 {
+                    //Create item regex
                     nameRegexStr = R"(.*look.*(\s+.+\s+|\s+))" + itm->GetName() + ".*";
-                    LOG_STRING("String created");
                     std::regex itemRegex(nameRegexStr, std::regex_constants::ECMAScript | std::regex_constants::icase);
-                    LOG_STRING("regex created");
+                    //If player asked for this item
                     if(regex_match(command, itemRegex))
                     {
-                        LOG_STRING("And matched");
                         cmd = std::unique_ptr<Command>(new CommandWrite(itm->GetDesc()));
-                        LOG_STRING("And created");
+                        //Return proper command
                         return cmd;
                     }
                 }
             }
         }
-
-
+        return cmd;//equal to return nullptr
+    }
+    std::unique_ptr<Command> Place::HandleTakeCommand(std::string& command)
+    {
+        std::unique_ptr<Command> cmd = nullptr;
+        //If player said he wants to "take" something
+        if(regex_match(command, m_takeCommand))
+        {
+            //Then let's loop over items
+            for(auto& item_pair : m_items)
+            {
+                auto itm = ItemsBank::GetInstance().GetItem(item_pair.first);
+                std::string nameRegexStr = "";
+                //If item exists(no error), check for taking it.
+                if(itm)
+                {
+                    //Create item regex
+                    nameRegexStr = R"(.*take.*(\s+.+\s+|\s+))" + itm->GetName() + ".*";
+                    std::regex itemRegex(nameRegexStr, std::regex_constants::ECMAScript | std::regex_constants::icase);
+                    //If player asked for this item
+                    if(regex_match(command, itemRegex))
+                    {
+                        //Send command to return this item
+                        //Command will have item code
+                        cmd = std::unique_ptr<Command>(new CommandAddItem(item_pair.first));
+                        //Now change amount of these items in place, by one.
+                        item_pair.second -= 1;
+                        if(item_pair.second <= 0)
+                        {
+                            m_items.erase(item_pair);
+                        }
+                        //Return proper command
+                        return cmd;
+                    }
+                }
+            }
+        }
+        return cmd;
     }
 }

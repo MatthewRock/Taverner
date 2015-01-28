@@ -20,7 +20,7 @@ namespace Taverner
             void PrintEverything(Csout& csout);
             void PrintItems(Csout& csout);
             void PrintNPCs(Csout& csout);
-            std::unique_ptr<Command> HandleEvents(std::string command);
+            std::unique_ptr<Command> HandleEvents(std::string& command);
         protected:
         private:
             int m_x, m_y;
@@ -32,6 +32,11 @@ namespace Taverner
             std::vector<std::pair<std::regex, std::string> > m_dialogues;
             std::regex m_lookCommand;
             std::regex m_lookAroundCommand;
+            std::regex m_takeCommand;
+
+            std::unique_ptr<Command> HandleLookCommand(std::string& command);
+            std::unique_ptr<Command> HandleTakeCommand(std::string& command);
+
     };
 }
 #endif // PLACE_HPP
