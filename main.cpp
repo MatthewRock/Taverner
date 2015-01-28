@@ -22,8 +22,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 //TODO:
-//2) Implement items
-//3) Implement looking at things
+//3) Implement taking items.
 //4) Implement monsters and fight
 //5) Add bounds to the map, so we aren't travelling off-map.
 

@@ -6,6 +6,8 @@
 //#include "Item.h"
 #include "NPC.hpp"
 #include <memory>
+#include <regex>
+#include <utility> //std::pair
 #include "Command.hpp"
 
 //Limitation: one creature per place.
@@ -28,6 +30,8 @@ namespace Taverner
             //Item ID, quantity
             std::vector<std::pair<int, int> > m_items;
             std::vector<std::pair<std::regex, std::string> > m_dialogues;
+            std::regex m_lookCommand;
+            std::regex m_lookAroundCommand;
     };
 }
 #endif // PLACE_HPP
