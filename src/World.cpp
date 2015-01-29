@@ -5,6 +5,7 @@
 #include "LocationParser.hpp"
 #include "ItemParser.hpp"
 #include "ItemsBank.h"
+#include "CommandAddItem.hpp"
 
 namespace Taverner
 {
@@ -22,6 +23,7 @@ namespace Taverner
         m_map = parser.Parse();
         //Print starting location's info
         m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()))->second.PrintEverything(csout);
+        CommandAddItem::SetPlayer(&m_player);
     }
     void World::Pause()
     {
@@ -72,8 +74,6 @@ namespace Taverner
         //If player has moved
         if(m_player.Moved())
         {
-// TODO (s407267#1#): CONTINUE HERE
-// Current: inspect ItemsBank and see why it doesnt work
             //Unflag his move
             m_player.NoMove();
             //Look for his current location and print it.
@@ -81,7 +81,6 @@ namespace Taverner
             if(place != m_map.end())
                 place->second.PrintEverything(csout);
         }
-        //csout << endl << "Debug: " << ItemsBank::GetInstance().GetItem(4)->GetName();
     }
     void World::HandleWorldCommands(int code, std::string& command)
     {

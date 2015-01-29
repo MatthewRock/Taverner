@@ -5,6 +5,8 @@
 
 namespace Taverner
 {
+    class Player;
+
     class Command
     {
         public:

@@ -2,6 +2,7 @@
 #include "ItemsBank.h"
 #include "CommandWrite.hpp"
 #include "Logger.hpp"
+#include "CommandAddItem.hpp"
 
 namespace Taverner
 {
@@ -106,9 +107,9 @@ namespace Taverner
         if(regex_match(command, m_takeCommand))
         {
             //Then let's loop over items
-            for(auto& item_pair : m_items)
+            for(auto it = m_items.begin(); it != m_items.end(); ++it)
             {
-                auto itm = ItemsBank::GetInstance().GetItem(item_pair.first);
+                auto itm = ItemsBank::GetInstance().GetItem(it->first);
                 std::string nameRegexStr = "";
                 //If item exists(no error), check for taking it.
                 if(itm)
@@ -121,12 +122,12 @@ namespace Taverner
                     {
                         //Send command to return this item
                         //Command will have item code
-                        cmd = std::unique_ptr<Command>(new CommandAddItem(item_pair.first));
+                        cmd = std::unique_ptr<Command>(new CommandAddItem(it->first));
                         //Now change amount of these items in place, by one.
-                        item_pair.second -= 1;
-                        if(item_pair.second <= 0)
+                        it->second -= 1;
+                        if(it->second <= 0)
                         {
-                            m_items.erase(item_pair);
+                            m_items.erase(it);
                         }
                         //Return proper command
                         return cmd;
