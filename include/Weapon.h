@@ -12,6 +12,8 @@ namespace Taverner
             : Item(name, description, value, ITEM_WEAPON), m_damage(dam), m_defence(def)
             {}
             ~Weapon() = default;
+            inline unsigned GetDamage() { return m_damage; }
+            inline unsigned GetDefence() { return m_defence; }
 
         protected:
             unsigned m_damage;

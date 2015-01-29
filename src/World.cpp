@@ -6,7 +6,7 @@
 #include "ItemParser.hpp"
 #include "ItemsBank.h"
 #include "CommandAddItem.hpp"
-
+#include "GameEngine.hpp"
 namespace Taverner
 {
     World::World(Csout& csout)
@@ -17,6 +17,8 @@ namespace Taverner
         AddRegex(R"(.*go(\s+.+\s+|\s+)east.*)",         COMMAND_PLAYER_GO_EAST);
         AddRegex(R"(.*my(\s+.+\s+|\s+)position.*)",     COMMAND_PLAYER_WRITE_POS);
         AddRegex(R"(.*my(\s+.+\s+|\s+)statistics.*)",   COMMAND_PLAYER_WRITE_STATS);
+        AddRegex(R"(.*my(\s+.+\s+|\s+)items.*)",        COMMAND_PLAYER_WRITE_ITEMS);
+        AddRegex(R"(equip.*)",                          COMMAND_PLAYER_EQUIP);
         LocationParser parser("world.xml");
         ItemParser parser2("world.xml");
         parser2.Parse();
@@ -51,7 +53,6 @@ namespace Taverner
         //If no regex was found, continue searching:
         if(resultCode == COMMAND_UNKNOWN_COMMAND)
         {
-
             //Find current x and y's location.
             auto place = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()));
             //If no location found(normally this shouldn't happen), do nothing.
@@ -66,7 +67,13 @@ namespace Taverner
     }
     void World::Update(GameEngine* eng)
     {
+        if(m_player.Dead())
+            eng->Quit();
         m_command->Execute();
+        auto place = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()));
+            //If player is not on board
+        if(place == m_map.end())
+            m_player.Hurt();
     }
     void World::Draw(Csout& csout)
     {
@@ -78,9 +85,21 @@ namespace Taverner
             m_player.NoMove();
             //Look for his current location and print it.
             auto place = m_map.find(std::make_pair(m_player.GetX(), m_player.GetY()));
+            //If player is at board
             if(place != m_map.end())
                 place->second.PrintEverything(csout);
+            else
+            {
+                csout << "The fog is so thick that you can't see anything. You hit the tree. You'd better go back to place where you can see something." << endl;
+            }
         }
+        if(m_player.Dead())
+        {
+            attron(COLOR_PAIR(COLOR_RED));
+            csout << "You are dead. Type any command to leave the game in shame." << endl;
+            attroff(COLOR_PAIR(COLOR_RED));
+        }
+
     }
     void World::HandleWorldCommands(int code, std::string& command)
     {
@@ -88,7 +107,10 @@ namespace Taverner
         if(code < COMMAND_PLAYER_DELIMITER) // If it's command related to player
         {
             //Send player command.
-            m_command = std::unique_ptr<Command>(new CommandPlayer(code, &m_player));
+            if(code == COMMAND_PLAYER_EQUIP)
+                m_command = std::unique_ptr<Command>(new CommandPlayer(code, &m_player, command));
+            else
+                m_command = std::unique_ptr<Command>(new CommandPlayer(code, &m_player));
         }//... other commands
         else//If no command fits
         {

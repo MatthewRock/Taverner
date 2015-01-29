@@ -34,6 +34,7 @@ namespace Taverner
             void ChangeState(GameState* state);
             void PushState(GameState* state);
             void PopState();
+            inline void Quit() { m_running = false; }
 
         private:
             void Update();
@@ -46,7 +47,6 @@ namespace Taverner
                 m_commands.push_back(std::make_pair(std::regex(text, std::regex_constants::ECMAScript | std::regex_constants::icase), code));
             }
 
-            inline void Quit() { m_running = false; }
             inline bool IsRunning() { return m_running; }
 
             std::vector<std::unique_ptr<GameState> > m_states;

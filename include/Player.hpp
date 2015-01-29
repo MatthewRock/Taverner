@@ -4,6 +4,8 @@
 #include <Creature.h>
 #include <vector>
 #include <utility>//std::pair
+#include "csout.hpp"
+#include "Weapon.h"
 namespace Taverner
 {
     class Player : public Creature
@@ -20,18 +22,28 @@ namespace Taverner
 
             void AddItem(int code, int quantity);
             void RemoveItem(int code, int quantity);
+            void PrintItems(Csout& csout);
+            bool Equip(std::string& item);
+
+            void PrintStats(Csout& csout);
+            void Hurt(int num = 1)
+            {
+                m_hp -= num;
+            }
+            inline bool Dead() { return m_hp <= 0; }
 // TODO (s407267#1#): Finish implementing items: player can have eq, equip items, look at eq and stats. ...
 //THEN: //3
 
         protected:
         private:
+            int m_hp;
             int m_x, m_y;
 // TODO (s407267#1#): Implement attack and stats
             int m_atk, m_def;
             bool m_moved;
             //Pair item - quantity
             std::vector<std::pair<int, int> > m_equipement;
-
+            Weapon* m_equippedWpn;
     };
 }
 #endif // PLAYER_HPP

@@ -45,7 +45,7 @@ namespace Taverner
     void GameEngine::HandleEngineEvents(std::string ch)
     {
         int answerCode = COMMAND_N;
-        m_csout << "String: " << ch << endl;
+        //m_csout << "String: " << ch << endl;
         for(auto& elem : m_commands)
         {
             if(std::regex_match(ch, elem.first))

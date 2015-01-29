@@ -17,8 +17,6 @@ namespace Taverner
     {
         public:
             Inventory() = default;
-// TODO (malice#1#): Prepare for adding items using Item Manager.
-
             void addItem(){};
         protected:
         private:

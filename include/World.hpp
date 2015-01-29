@@ -31,6 +31,8 @@ namespace Taverner
         COMMAND_PLAYER_GO_EAST,
         COMMAND_PLAYER_WRITE_STATS,
         COMMAND_PLAYER_WRITE_POS,
+        COMMAND_PLAYER_WRITE_ITEMS,
+        COMMAND_PLAYER_EQUIP,
         COMMAND_PLAYER_DELIMITER,
         COMMAND_UNKNOWN_COMMAND,
     };
@@ -70,21 +72,35 @@ namespace Taverner
     {
         int m_code;
         Player* m_player;
+        std::string m_item;
+        bool success;
         public:
-            CommandPlayer(int code, Player* player) : m_code(code), m_player(player) {}
+            CommandPlayer(int code, Player* player, std::string item = "") : m_code(code), m_player(player), m_item(item), success(true) {}
             void Draw(Csout& csout)
             {
                 attron(COLOR_PAIR(COLOR_YELLOW));
                 switch(m_code)
                 {
                 case COMMAND_PLAYER_WRITE_POS:
-                    csout << "Player position: " << m_player->GetX() << " " << m_player->GetY() << endl;
+                    csout << "My position: " << m_player->GetX() << " " << m_player->GetY() << endl;
+                    break;
+                case COMMAND_PLAYER_WRITE_ITEMS:
+                    m_player->PrintItems(csout);
                     break;
                 case COMMAND_PLAYER_WRITE_STATS:
-                    csout << "Write player stats." << endl;
+                    m_player->PrintStats(csout);
                     break;
                 default:
-                    csout << "OK" << endl;
+                    if(success)
+                        csout << "OK" << endl;
+                    else
+                    {
+                        attroff(COLOR_PAIR(COLOR_YELLOW));
+                        attron(COLOR_PAIR(COLOR_RED));
+                        csout << "Sorry, can't do this." << endl;
+                        attroff(COLOR_PAIR(COLOR_RED));
+                        attron(COLOR_PAIR(COLOR_YELLOW));
+                    }
                     break;
                 }
                 attroff(COLOR_PAIR(COLOR_YELLOW));
@@ -105,6 +121,9 @@ namespace Taverner
                     break;
                 case COMMAND_PLAYER_GO_WEST:
                     m_player->Move(-1, 0);
+                    break;
+                case COMMAND_PLAYER_EQUIP:
+                    success = m_player->Equip(m_item);
                     break;
                 default:
                     break;

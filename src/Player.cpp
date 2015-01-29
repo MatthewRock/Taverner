@@ -1,11 +1,18 @@
 #include "Player.hpp"
+#include "ItemsBank.h"
+#include "Logger.hpp"
+#include <algorithm>
 
 namespace Taverner
 {
-    Player::Player()
+    Player::Player() : m_equippedWpn(nullptr)
     {
         m_x = 0;
         m_y = 0;
+        m_atk = 10;
+        m_def = 10;
+        m_moved = false;
+        m_hp = 10;
     }
     void Player::Move(int x, int y)
     {
@@ -43,5 +50,54 @@ namespace Taverner
                 }
             }
         }
+    }
+    void Player::PrintItems(Csout& csout)
+    {
+        bool visited = false;
+        for(auto& elem : m_equipement)
+        {
+            visited = true;
+            csout << "You have " << elem.second << ' ' << ItemsBank::GetInstance().GetItem(elem.first)->GetName() << "(s)" << endl;
+        }
+        if(!visited)
+            csout << "You have no items." << endl;
+    }
+    bool Player::Equip(std::string& item)
+    {
+        std::string itemName = item.substr(6);
+        std::transform(itemName.begin(), itemName.end(), itemName.begin(), ::tolower);
+
+        for(auto& elem : m_equipement)
+        {
+            std::string realName = ItemsBank::GetInstance().GetItem(elem.first)->GetName();
+            std::transform(realName.begin(), realName.end(), realName.begin(), ::tolower);
+            if(realName == itemName)
+            {
+                ITEM_TYPE itemID = ItemsBank::GetInstance().GetItem(elem.first)->GetType();
+                LOG_STRING(std::to_string(itemID));
+                if(itemID == ITEM_WEAPON)
+                    m_equippedWpn = static_cast<Weapon*>(ItemsBank::GetInstance().GetItem(elem.first));
+                else if (itemID == ITEM_ARMOUR)
+                //THIS IS NOT WORKING, TEMPORARY
+                    m_equippedWpn = static_cast<Weapon*>(ItemsBank::GetInstance().GetItem(elem.first));
+                else
+                    return false;
+
+                return true;
+            }
+        }
+        return false;
+    }
+    void Player::PrintStats(Csout& csout)
+    {
+        csout << "My hp: " << m_hp << endl;
+        csout << "My attack: " << m_atk << endl;
+        csout << "My defence: " << m_def << endl;
+        if(m_equippedWpn)
+        {
+            csout << "My weapon is " << m_equippedWpn->GetName() << endl << m_equippedWpn->GetDesc() << endl;
+            csout << "It has " << m_equippedWpn->GetDamage() << " points of damage, and " << m_equippedWpn->GetDefence() << " points of defence." << endl;
+        }
+
     }
 }

@@ -3,18 +3,18 @@
 #include "CommandWrite.hpp"
 #include "Logger.hpp"
 #include "CommandAddItem.hpp"
+#include "Item.h"
+#include "Weapon.h"
+#include "Armour.h"
 
 namespace Taverner
 {
     Place::Place(std::string name, std::string desc, int x, int y, std::vector<NPC>&& npcs, std::vector<std::pair<int, int> >&& items)
         : m_name(name), m_x(x), m_y(y), m_desc(desc), m_npcs(npcs), m_items(items)
     {
-// TODO (s407267#1#): Insert regex to look around, at items, etc.
-//Insert command "Describe surroundings"
             m_lookCommand       = std::regex (".*look.*", std::regex_constants::ECMAScript | std::regex_constants::icase);
             m_lookAroundCommand = std::regex(R"(.*look.*(\s+.+\s+|\s+)around.*)", std::regex_constants::ECMAScript | std::regex_constants::icase);
             m_takeCommand       = std::regex(R"(.*take.*)", std::regex_constants::ECMAScript | std::regex_constants::icase);
-
     }
     void Place::PrintEverything(Csout& csout)
     {
@@ -31,7 +31,12 @@ namespace Taverner
             std::string itemName = "";
             //If item exists(no error), print it.
             if(itm)
+            {
                 itemName = itm->GetName() + "(s)";
+                LOG_STRING("Item found:");
+                LOG_STRING(itemName);
+            }
+
 
             csout << "You see " << item_pair.second << " " << itemName << endl;
         }

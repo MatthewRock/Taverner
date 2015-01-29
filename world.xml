@@ -22,19 +22,21 @@
   </location>
   <location>
     <name>Palace garden</name>
-		<description>The garden goes on and on. It's beautiful, like everything in here.</description>
-		<x>0</x>
-		<y>1</y>
-		<monster>
-		  <spawnchance> <!-- 0-100% -->
-		    20
-		  </spawnchance>
-		  <name>Rat</name>
-		  <atk>10</atk>
-		  <def>10</def>
-		  <traits>a big rat</traits><!-- Wygeneruje: It's a big rat!-->
-		  <!-- Bez traits, domyślny string to "It doesn't have any special traits." -->
-		</monster>
+    <description>The garden goes on and on. It's beautiful, like everything in here.</description>
+    <x>0</x>
+    <y>1</y>
+    <item quantity="1">1</item>
+    <item quantity="1">3</item>
+    <monster>
+      <spawnchance> <!-- 0-100% -->
+	20
+      </spawnchance>
+      <name>Rat</name>
+      <atk>10</atk>
+      <def>10</def>
+      <traits>a big rat</traits><!-- Wygeneruje: It's a big rat!-->
+      <!-- Bez traits, domyślny string to "It doesn't have any special traits." -->
+    </monster>
   </location>
   <item type="weapon">
     <name>Sword of Hefajstos</name>

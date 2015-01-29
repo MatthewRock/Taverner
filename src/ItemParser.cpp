@@ -6,6 +6,7 @@
 #include "Weapon.h"
 #include "Armour.h"
 #include "ItemsBank.h"
+#include <regex>
 
 #include "Logger.hpp"
 
@@ -29,17 +30,19 @@ namespace Taverner
             std::string name = itm->first_node("name")->value();
             std::string description = itm->first_node("description")->value();
             //Get items type
-            auto type = itm->first_attribute("quantity");
+            auto type = itm->first_attribute("type");
             //if it has type, it's either weapon or armor: proceed with their creation.
             if(type)
             {
+                LOG_STRING("Type found:");
+                LOG_STRING(type->value());
                 int def = std::stoi(itm->first_node("def")->value());
-                if(type->value() == "weapon")
+                if(regex_match(type->value(), std::regex(R"(.*weapon.*)", std::regex_constants::ECMAScript | std::regex_constants::icase)))
                 {
                     unsigned atk = std::stoi(itm->first_node("atk")->value());
                     ItemsBank::GetInstance().AddItem(ID, new Weapon(name, description, value, atk, def));
                 }
-                else if(type->value() == "armour")
+                else if(regex_match(type->value(), std::regex(R"(.*armour.*)", std::regex_constants::ECMAScript | std::regex_constants::icase)))
                 {
                     int slot = std::stoi(itm->first_node("slot")->value());
                     ItemsBank::GetInstance().AddItem(ID, new Armour(name, description, value, def, slot));
