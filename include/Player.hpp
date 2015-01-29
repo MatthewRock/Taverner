@@ -6,6 +6,8 @@
 #include <utility>//std::pair
 #include "csout.hpp"
 #include "Weapon.h"
+#include "Armour.h"
+
 namespace Taverner
 {
     class Player : public Creature
@@ -44,6 +46,7 @@ namespace Taverner
             //Pair item - quantity
             std::vector<std::pair<int, int> > m_equipement;
             Weapon* m_equippedWpn;
+            Armour* m_equippedArmour[SLOT_N];
     };
 }
 #endif // PLAYER_HPP

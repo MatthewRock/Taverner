@@ -13,6 +13,10 @@ namespace Taverner
         m_def = 10;
         m_moved = false;
         m_hp = 10;
+        for(int i = 0; i < SLOT_N; ++i)
+        {
+            m_equippedArmour[i] = nullptr;
+        }
     }
     void Player::Move(int x, int y)
     {
@@ -78,8 +82,9 @@ namespace Taverner
                 if(itemID == ITEM_WEAPON)
                     m_equippedWpn = static_cast<Weapon*>(ItemsBank::GetInstance().GetItem(elem.first));
                 else if (itemID == ITEM_ARMOUR)
-                //THIS IS NOT WORKING, TEMPORARY
-                    m_equippedWpn = static_cast<Weapon*>(ItemsBank::GetInstance().GetItem(elem.first));
+                {
+                    m_equippedArmour[static_cast<Armour*>(ItemsBank::GetInstance().GetItem(elem.first))->GetSlot()] = static_cast<Armour*>(ItemsBank::GetInstance().GetItem(elem.first));
+                }
                 else
                     return false;
 
@@ -97,6 +102,14 @@ namespace Taverner
         {
             csout << "My weapon is " << m_equippedWpn->GetName() << endl << m_equippedWpn->GetDesc() << endl;
             csout << "It has " << m_equippedWpn->GetDamage() << " points of damage, and " << m_equippedWpn->GetDefence() << " points of defence." << endl;
+        }
+        for(int i = 0; i < SLOT_N; ++i)
+        {
+            if(m_equippedArmour[i])
+            {
+                csout << "I am wearing " << m_equippedArmour[i]->GetName() << endl << m_equippedArmour[i]->GetDesc() << endl
+                      << "It grants me " << m_equippedArmour[i]->GetDef() << "points of defence."  << endl;
+            }
         }
 
     }
